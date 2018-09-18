@@ -14,7 +14,6 @@
 
 package com.liferay.commerce.product.definitions.web.internal.display.context;
 
-import com.liferay.commerce.product.constants.CPActionKeys;
 import com.liferay.commerce.product.definitions.web.configuration.AttachmentsConfiguration;
 import com.liferay.commerce.product.definitions.web.display.context.BaseCPDefinitionsSearchContainerDisplayContext;
 import com.liferay.commerce.product.definitions.web.internal.util.CPDefinitionsPortletUtil;
@@ -41,7 +40,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -65,8 +63,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Marco Leo
  */
 public class CPAttachmentFileEntriesDisplayContext
-	extends BaseCPDefinitionsSearchContainerDisplayContext
-		<CPAttachmentFileEntry> {
+	extends BaseCPDefinitionsSearchContainerDisplayContext<CPAttachmentFileEntry> {
 
 	public CPAttachmentFileEntriesDisplayContext(
 			ActionHelper actionHelper,
@@ -76,7 +73,7 @@ public class CPAttachmentFileEntriesDisplayContext
 			CPInstanceHelper cpInstanceHelper,
 			DLMimeTypeDisplayContext dlMimeTypeDisplayContext,
 			HttpServletRequest httpServletRequest, ItemSelector itemSelector,
-			Portal portal, PortletResourcePermission portletResourcePermission,
+			Portal portal,
 			WorkflowDefinitionLinkLocalService
 				workflowDefinitionLinkLocalService)
 		throws PortalException {
@@ -95,7 +92,6 @@ public class CPAttachmentFileEntriesDisplayContext
 		_dlMimeTypeDisplayContext = dlMimeTypeDisplayContext;
 		_itemSelector = itemSelector;
 		_portal = portal;
-		_portletResourcePermission = portletResourcePermission;
 		_workflowDefinitionLinkLocalService =
 			workflowDefinitionLinkLocalService;
 
@@ -336,18 +332,6 @@ public class CPAttachmentFileEntriesDisplayContext
 		return type;
 	}
 
-	public boolean hasManagePermission(int type) {
-		String actionId = CPActionKeys.MANAGE_COMMERCE_PRODUCT_ATTACHMENTS;
-
-		if (type == CPAttachmentFileEntryConstants.TYPE_IMAGE) {
-			actionId = CPActionKeys.MANAGE_COMMERCE_PRODUCT_IMAGES;
-		}
-
-		return _portletResourcePermission.contains(
-			cpRequestHelper.getPermissionChecker(),
-			cpRequestHelper.getScopeGroupId(), actionId);
-	}
-
 	public boolean hasOptions() throws PortalException {
 		int skuContributorCPDefinitionOptionRelCount =
 			_cpDefinitionOptionRelService.getCPDefinitionOptionRelsCount(
@@ -405,7 +389,6 @@ public class CPAttachmentFileEntriesDisplayContext
 	private final DLMimeTypeDisplayContext _dlMimeTypeDisplayContext;
 	private final ItemSelector _itemSelector;
 	private final Portal _portal;
-	private final PortletResourcePermission _portletResourcePermission;
 	private final int _type;
 	private final WorkflowDefinitionLinkLocalService
 		_workflowDefinitionLinkLocalService;

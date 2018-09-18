@@ -73,7 +73,7 @@ productSkusURL.setParameter("screenNavigationCategoryKey", cpInstanceDisplayCont
 			</aui:fieldset>
 
 			<c:if test="<%= !cpDefinition.isIgnoreSKUCombinations() %>">
-				<aui:fieldset cssClass="sku-options-panel" label="options">
+				<aui:fieldset collapsed="<%= false %>" collapsible="<%= true %>" label="Options">
 					<c:choose>
 						<c:when test="<%= cpInstance != null %>">
 

@@ -207,6 +207,14 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 		CPDefinition cpDefinition = cpDefinitionLocalService.getCPDefinition(
 			cpDefinitionId);
 
+		List<CPInstance> cpInstances = cpDefinition.getCPInstances();
+
+		CPInstance existingCPInstance = null;
+
+		if (!cpInstances.isEmpty()) {
+			existingCPInstance = cpInstances.get(0);
+		}
+
 		boolean neverExpire = false;
 
 		if (cpDefinition.getExpirationDate() == null) {
@@ -252,10 +260,15 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 			JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 			StringBundler skuSB = new StringBundler(
-				cpDefinitionOptionValueRels.length + 1);
+				cpDefinitionOptionValueRels.length + 2);
 
 			for (CPDefinitionOptionValueRel cpDefinitionOptionValueRel :
 					cpDefinitionOptionValueRels) {
+
+				if (existingCPInstance != null) {
+					skuSB.append(
+						StringUtil.toUpperCase(existingCPInstance.getSku()));
+				}
 
 				skuSB.append(
 					StringUtil.toUpperCase(
@@ -284,14 +297,23 @@ public class CPInstanceLocalServiceImpl extends CPInstanceLocalServiceBaseImpl {
 				continue;
 			}
 
+			BigDecimal cost = BigDecimal.ZERO;
+			BigDecimal price = BigDecimal.ZERO;
+			BigDecimal promoPrice = BigDecimal.ZERO;
+
+			if (existingCPInstance != null) {
+				cost = existingCPInstance.getCost();
+				price = existingCPInstance.getPrice();
+				promoPrice = existingCPInstance.getPromoPrice();
+			}
+
 			try {
 				addCPInstance(
 					cpDefinitionId, skuSB.toString(), StringPool.BLANK,
 					StringPool.BLANK, true, jsonArray.toString(),
 					cpDefinition.getWidth(), cpDefinition.getHeight(),
-					cpDefinition.getDepth(), cpDefinition.getWeight(),
-					BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, true,
-					cpDefinition.getDisplayDate(),
+					cpDefinition.getDepth(), cpDefinition.getWeight(), price,
+					promoPrice, cost, true, cpDefinition.getDisplayDate(),
 					cpDefinition.getExpirationDate(), neverExpire,
 					serviceContext);
 			}

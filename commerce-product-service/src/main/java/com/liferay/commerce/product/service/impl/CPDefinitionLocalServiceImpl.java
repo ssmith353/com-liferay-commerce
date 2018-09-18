@@ -14,9 +14,9 @@
 
 package com.liferay.commerce.product.service.impl;
 
-import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.model.AssetLinkConstants;
+import com.liferay.asset.kernel.service.persistence.AssetEntryQuery;
 import com.liferay.commerce.product.exception.CPDefinitionDisplayDateException;
 import com.liferay.commerce.product.exception.CPDefinitionExpirationDateException;
 import com.liferay.commerce.product.exception.CPDefinitionIgnoreSKUCombinationsException;
@@ -93,7 +93,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 /**
@@ -381,21 +380,14 @@ public class CPDefinitionLocalServiceImpl
 
 	@Override
 	public void deleteAssetCategoryCPDefinition(
-			long cpDefinitionId, long categoryId, ServiceContext serviceContext)
+			long cpDefinitionId, long categoryId)
 		throws PortalException {
 
 		AssetEntry assetEntry = assetEntryLocalService.getEntry(
 			CPDefinition.class.getName(), cpDefinitionId);
 
-		long[] categoryIds = ArrayUtil.remove(
-			assetEntry.getCategoryIds(), categoryId);
-
-		serviceContext.setAssetCategoryIds(categoryIds);
-
-		serviceContext.setAssetTagNames(assetEntry.getTagNames());
-
-		cpDefinitionLocalService.updateCPDefinitionCategorization(
-			cpDefinitionId, serviceContext);
+		assetEntryLocalService.deleteAssetCategoryAssetEntry(
+			categoryId, assetEntry.getEntryId());
 	}
 
 	@Indexable(type = IndexableType.DELETE)
@@ -673,22 +665,33 @@ public class CPDefinitionLocalServiceImpl
 
 	@Override
 	public List<CPDefinition> getCPDefinitionsByCategoryId(
-			long categoryId, int start, int end)
-		throws PortalException {
+		long categoryId, int start, int end) {
 
-		AssetCategory assetCategory =
-			assetCategoryLocalService.getAssetCategory(categoryId);
+		List<CPDefinition> cpDefinitions = new ArrayList<>();
 
-		SearchContext searchContext = buildSearchContext(
-			assetCategory.getCompanyId(), assetCategory.getGroupId(), null,
-			WorkflowConstants.STATUS_ANY, start, end, null);
+		long[] categoryIds = {categoryId};
 
-		searchContext.setAssetCategoryIds(new long[] {categoryId});
+		AssetEntryQuery assetEntryQuery = new AssetEntryQuery();
 
-		BaseModelSearchResult<CPDefinition> cpDefinitionBaseModelSearchResult =
-			searchCPDefinitions(searchContext);
+		assetEntryQuery.setClassName(CPDefinition.class.getName());
+		assetEntryQuery.setAllCategoryIds(categoryIds);
+		assetEntryQuery.setStart(start);
+		assetEntryQuery.setEnd(end);
 
-		return cpDefinitionBaseModelSearchResult.getBaseModels();
+		List<AssetEntry> assetEntries = assetEntryLocalService.getEntries(
+			assetEntryQuery);
+
+		for (AssetEntry assetEntry : assetEntries) {
+			long classPK = assetEntry.getClassPK();
+
+			CPDefinition cpDefinition = fetchCPDefinition(classPK);
+
+			if (cpDefinition != null) {
+				cpDefinitions.add(cpDefinition);
+			}
+		}
+
+		return cpDefinitions;
 	}
 
 	@Override
@@ -718,23 +721,15 @@ public class CPDefinitionLocalServiceImpl
 	}
 
 	@Override
-	public int getCPDefinitionsCountByCategoryId(long categoryId)
-		throws PortalException {
+	public int getCPDefinitionsCountByCategoryId(long categoryId) {
+		long[] categoryIds = {categoryId};
 
-		AssetCategory assetCategory =
-			assetCategoryLocalService.getAssetCategory(categoryId);
+		AssetEntryQuery assetEntryQuery = new AssetEntryQuery();
 
-		SearchContext searchContext = buildSearchContext(
-			assetCategory.getCompanyId(), assetCategory.getGroupId(), null,
-			WorkflowConstants.STATUS_ANY, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
+		assetEntryQuery.setClassName(CPDefinition.class.getName());
+		assetEntryQuery.setAllCategoryIds(categoryIds);
 
-		searchContext.setAssetCategoryIds(new long[] {categoryId});
-
-		BaseModelSearchResult<CPDefinition> cpDefinitionBaseModelSearchResult =
-			searchCPDefinitions(searchContext);
-
-		return cpDefinitionBaseModelSearchResult.getLength();
+		return assetEntryLocalService.getEntriesCount(assetEntryQuery);
 	}
 
 	@Override
@@ -842,10 +837,8 @@ public class CPDefinitionLocalServiceImpl
 				if (fieldName.equals("assetCategoryIds")) {
 					Stream<String> stream = Arrays.stream(facetValuesArray);
 
-					LongStream longStream = stream.mapToLong(
-						GetterUtil::getLong);
-
-					long[] assetCategoryIds = longStream.toArray();
+					long[] assetCategoryIds = stream.mapToLong(
+						GetterUtil::getLong).toArray();
 
 					searchContext.setAssetCategoryIds(assetCategoryIds);
 				}

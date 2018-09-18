@@ -14,17 +14,13 @@
 
 package com.liferay.commerce.product.options.web.internal.util;
 
-import com.liferay.commerce.product.constants.CPActionKeys;
-import com.liferay.commerce.product.constants.CPConstants;
 import com.liferay.commerce.product.constants.CPPortletKeys;
 import com.liferay.commerce.product.model.CPOption;
 import com.liferay.commerce.product.util.CPNavigationItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
@@ -57,14 +53,6 @@ public class CPOptionNavigationItem implements CPNavigationItem {
 		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		boolean manageCatalogPermission = _portletResourcePermission.contains(
-			themeDisplay.getPermissionChecker(), themeDisplay.getScopeGroupId(),
-			CPActionKeys.MANAGE_CATALOG);
-
-		if (!manageCatalogPermission) {
-			return null;
-		}
-
 		NavigationItem navigationItem = new NavigationItem();
 
 		String portletId = _portal.getPortletId(portletRequest);
@@ -80,15 +68,12 @@ public class CPOptionNavigationItem implements CPNavigationItem {
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", themeDisplay.getLocale(), getClass());
 
-		navigationItem.setLabel(LanguageUtil.get(resourceBundle, "options"));
+		navigationItem.setLabel("Options");
 
 		return navigationItem;
 	}
 
 	@Reference
 	private Portal _portal;
-
-	@Reference(target = "(resource.name=" + CPConstants.RESOURCE_NAME + ")")
-	private PortletResourcePermission _portletResourcePermission;
 
 }

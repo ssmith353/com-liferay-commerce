@@ -30,6 +30,9 @@ public class CommerceOrganizationScreenNavigationConstants {
 	public static final String ENTRY_KEY_ORGANIZATION_MEMBERS =
 		"organization-members";
 
+	public static final String ENTRY_KEY_ORGANIZATION_SUMMARY =
+		"organization-summary";
+
 	public static final String SCREEN_NAVIGATION_KEY =
 		"organization-screen-navigation";
 

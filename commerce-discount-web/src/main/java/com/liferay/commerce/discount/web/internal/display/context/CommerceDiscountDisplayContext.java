@@ -41,8 +41,6 @@ import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -56,7 +54,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import javax.portlet.PortletURL;
@@ -70,26 +67,19 @@ public class CommerceDiscountDisplayContext {
 
 	public CommerceDiscountDisplayContext(
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
-		ModelResourcePermission<CommerceDiscount>
-			commerceDiscountModelResourcePermission,
 		CommerceDiscountService commerceDiscountService,
 		CommerceDiscountTargetRegistry commerceDiscountTargetRegistry,
 		CommerceDiscountUserSegmentRelService
 			commerceDiscountUserSegmentRelService,
-		HttpServletRequest httpServletRequest, ItemSelector itemSelector,
-		PortletResourcePermission portletResourcePermission) {
+		HttpServletRequest httpServletRequest, ItemSelector itemSelector) {
 
 		_commerceCurrencyLocalService = commerceCurrencyLocalService;
-		_commerceDiscountModelResourcePermission =
-			commerceDiscountModelResourcePermission;
 		_commerceDiscountService = commerceDiscountService;
 		_commerceDiscountTargetRegistry = commerceDiscountTargetRegistry;
 		_commerceDiscountUserSegmentRelService =
 			commerceDiscountUserSegmentRelService;
 
 		this.itemSelector = itemSelector;
-
-		_portletResourcePermission = portletResourcePermission;
 
 		commerceDiscountRequestHelper = new CommerceDiscountRequestHelper(
 			httpServletRequest);
@@ -316,20 +306,6 @@ public class CommerceDiscountDisplayContext {
 			CommerceDiscount.class.getName(), getCommerceDiscountId(), null);
 	}
 
-	public boolean hasPermission(long commerceDiscountId, String actionId)
-		throws PortalException {
-
-		return _commerceDiscountModelResourcePermission.contains(
-			commerceDiscountRequestHelper.getPermissionChecker(),
-			commerceDiscountId, actionId);
-	}
-
-	public boolean hasPermission(String actionId) {
-		return _portletResourcePermission.contains(
-			commerceDiscountRequestHelper.getPermissionChecker(),
-			commerceDiscountRequestHelper.getScopeGroupId(), actionId);
-	}
-
 	public BigDecimal round(BigDecimal value) {
 		CommerceCurrency commerceCurrency =
 			_commerceCurrencyLocalService.fetchPrimaryCommerceCurrency(
@@ -363,9 +339,7 @@ public class CommerceDiscountDisplayContext {
 
 		Stream<Long> stream = commerceUserSegmentEntryIdsList.stream();
 
-		LongStream longStream = stream.mapToLong(l -> l);
-
-		return longStream.toArray();
+		return stream.mapToLong(l -> l).toArray();
 	}
 
 	protected String getKeywords() {
@@ -428,15 +402,12 @@ public class CommerceDiscountDisplayContext {
 
 	private final CommerceCurrencyLocalService _commerceCurrencyLocalService;
 	private CommerceDiscount _commerceDiscount;
-	private final ModelResourcePermission<CommerceDiscount>
-		_commerceDiscountModelResourcePermission;
 	private final CommerceDiscountService _commerceDiscountService;
 	private final CommerceDiscountTargetRegistry
 		_commerceDiscountTargetRegistry;
 	private final CommerceDiscountUserSegmentRelService
 		_commerceDiscountUserSegmentRelService;
 	private String _keywords;
-	private final PortletResourcePermission _portletResourcePermission;
 	private SearchContainer<CommerceDiscount> _searchContainer;
 
 }

@@ -16,7 +16,6 @@ package com.liferay.commerce.discount.web.internal.display.context;
 
 import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
-import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.commerce.discount.model.CommerceDiscountRel;
 import com.liferay.commerce.discount.service.CommerceDiscountRelService;
 import com.liferay.commerce.discount.service.CommerceDiscountService;
@@ -37,8 +36,6 @@ import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringUtil;
 
@@ -46,7 +43,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import javax.portlet.PortletURL;
@@ -61,23 +57,19 @@ public class CommerceDiscountRelDisplayContext
 
 	public CommerceDiscountRelDisplayContext(
 		CommerceCurrencyLocalService commerceCurrencyLocalService,
-		ModelResourcePermission<CommerceDiscount>
-			commerceDiscountModelResourcePermission,
 		CommerceDiscountRelService commerceDiscountRelService,
 		CommerceDiscountService commerceDiscountService,
 		CommerceDiscountTargetRegistry commerceDiscountTargetRegistry,
 		CommerceDiscountUserSegmentRelService
 			commerceDiscountUserSegmentRelService,
 		CPDefinitionService cpDefinitionService,
-		HttpServletRequest httpServletRequest, ItemSelector itemSelector,
-		PortletResourcePermission portletResourcePermission) {
+		HttpServletRequest httpServletRequest, ItemSelector itemSelector) {
 
 		super(
-			commerceCurrencyLocalService,
-			commerceDiscountModelResourcePermission, commerceDiscountService,
+			commerceCurrencyLocalService, commerceDiscountService,
 			commerceDiscountTargetRegistry,
 			commerceDiscountUserSegmentRelService, httpServletRequest,
-			itemSelector, portletResourcePermission);
+			itemSelector);
 
 		_commerceDiscountRelService = commerceDiscountRelService;
 		_cpDefinitionService = cpDefinitionService;
@@ -188,9 +180,7 @@ public class CommerceDiscountRelDisplayContext
 
 		Stream<Long> stream = cpDefinitionIdsList.stream();
 
-		LongStream longStream = stream.mapToLong(l -> l);
-
-		return longStream.toArray();
+		return stream.mapToLong(l -> l).toArray();
 	}
 
 	protected List<CommerceDiscountRel> getCommerceDiscountRels()

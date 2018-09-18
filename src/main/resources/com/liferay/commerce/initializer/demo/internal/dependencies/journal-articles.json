@@ -1,0 +1,20 @@
+[
+	{
+		"articleId": "HOME_PAGE_CAROUSEL",
+		"ddmStructureKey": "DEMO_CAROUSEL",
+		"ddmTemplateKey": "DEMO_CAROUSEL",
+		"title": "HOME_PAGE_CAROUSEL"
+	},
+	{
+		"articleId": "SALES_PROMO_CARDS",
+		"ddmStructureKey": "DEMO_BANNER",
+		"ddmTemplateKey": "DEMO_BANNER",
+		"title": "SALES_PROMO_CARDS"
+	},
+	{
+		"articleId": "SPECIAL_SAVINGS_MESSAGE",
+		"ddmStructureKey": "DEMO_BANNER",
+		"ddmTemplateKey": "DEMO_BANNER",
+		"title": "SPECIAL_SAVINGS_MESSAGE"
+	}
+]

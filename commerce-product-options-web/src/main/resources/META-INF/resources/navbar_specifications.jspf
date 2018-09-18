@@ -36,13 +36,8 @@ cpOptionCategoriesNavigationItem.setActive(portletName.equals(CPPortletKeys.CP_O
 cpOptionCategoriesNavigationItem.setHref(viewProductOptionCategoriesURL.toString());
 cpOptionCategoriesNavigationItem.setLabel(LanguageUtil.get(request, "specification-groups"));
 
-if (manageCPSpecificationOptionsPermission) {
-	navigationItems.add(cpSpecificationOptionsNavigationItem);
-}
-
-if (manageCPOptionCategoriesPermission) {
-	navigationItems.add(cpOptionCategoriesNavigationItem);
-}
+navigationItems.add(cpSpecificationOptionsNavigationItem);
+navigationItems.add(cpOptionCategoriesNavigationItem);
 %>
 
 <clay:navigation-bar

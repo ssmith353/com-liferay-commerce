@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import javax.portlet.ActionRequest;
@@ -73,6 +74,14 @@ public class SetCurrentOrganizationMVCActionCommand
 
 		String redirect = siteGroup.getDisplayURL(
 			themeDisplay, layout.isPrivateLayout());
+
+		String currentURL = _portal.getCurrentURL(httpServletRequest);
+
+		if (!currentURL.contains("/group/beryl/home") &&
+			!currentURL.contains("web/guest")) {
+
+			redirect = StringUtil.split(currentURL, "?")[0];
+		}
 
 		actionRequest.setAttribute(WebKeys.REDIRECT, redirect);
 

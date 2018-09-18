@@ -825,7 +825,6 @@
 		<column name="name" type="String" />
 		<column name="active" type="boolean" />
 		<column name="type" type="String" />
-		<column name="typeSettings" type="String" />
 
 		<!-- Order -->
 

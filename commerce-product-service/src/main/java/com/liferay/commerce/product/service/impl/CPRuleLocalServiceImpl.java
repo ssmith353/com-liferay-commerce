@@ -45,7 +45,6 @@ import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.spring.extender.service.ServiceReference;
@@ -71,18 +70,6 @@ public class CPRuleLocalServiceImpl extends CPRuleLocalServiceBaseImpl {
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		return cpRuleLocalService.addCPRule(
-			name, active, type, null, serviceContext);
-	}
-
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CPRule addCPRule(
-			String name, boolean active, String type,
-			UnicodeProperties typeSettingsProperties,
-			ServiceContext serviceContext)
-		throws PortalException {
-
 		// Commerce product rule
 
 		User user = userLocalService.getUser(serviceContext.getUserId());
@@ -101,7 +88,6 @@ public class CPRuleLocalServiceImpl extends CPRuleLocalServiceBaseImpl {
 		cpRule.setName(name);
 		cpRule.setActive(active);
 		cpRule.setType(type);
-		cpRule.setTypeSettingsProperties(typeSettingsProperties);
 		cpRule.setExpandoBridgeAttributes(serviceContext);
 
 		cpRulePersistence.update(cpRule);
@@ -280,18 +266,6 @@ public class CPRuleLocalServiceImpl extends CPRuleLocalServiceBaseImpl {
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		return cpRuleLocalService.updateCPRule(
-			cpRuleId, name, active, type, null, serviceContext);
-	}
-
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CPRule updateCPRule(
-			long cpRuleId, String name, boolean active, String type,
-			UnicodeProperties typeSettingsProperties,
-			ServiceContext serviceContext)
-		throws PortalException {
-
 		CPRule cpRule = cpRulePersistence.findByPrimaryKey(cpRuleId);
 
 		validate(type);
@@ -299,7 +273,6 @@ public class CPRuleLocalServiceImpl extends CPRuleLocalServiceBaseImpl {
 		cpRule.setName(name);
 		cpRule.setActive(active);
 		cpRule.setType(type);
-		cpRule.setTypeSettingsProperties(typeSettingsProperties);
 		cpRule.setExpandoBridgeAttributes(serviceContext);
 
 		cpRule = cpRulePersistence.update(cpRule);

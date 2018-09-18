@@ -15,7 +15,6 @@
 package com.liferay.commerce.product.definitions.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.product.model.CPAttachmentFileEntry;
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.servlet.taglib.ui.BaseJSPFormNavigatorEntry;
 import com.liferay.portal.kernel.servlet.taglib.ui.FormNavigatorEntry;
 
@@ -52,7 +51,7 @@ public class CPAttachmentFileEntryDetailsOptionsFormNavigatorEntry
 
 	@Override
 	public String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, "options");
+		return "Options";
 	}
 
 	@Override

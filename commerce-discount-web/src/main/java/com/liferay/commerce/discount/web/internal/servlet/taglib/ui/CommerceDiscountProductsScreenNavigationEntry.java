@@ -29,8 +29,6 @@ import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.item.selector.ItemSelector;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
@@ -112,12 +110,10 @@ public class CommerceDiscountProductsScreenNavigationEntry
 
 		CommerceDiscountRelDisplayContext commerceDiscountRelDisplayContext =
 			new CommerceDiscountRelDisplayContext(
-				_commerceCurrencyLocalService,
-				_commerceDiscountModelResourcePermission,
-				_commerceDiscountRelService, _commerceDiscountService,
-				_commerceDiscountTargetRegistry,
+				_commerceCurrencyLocalService, _commerceDiscountRelService,
+				_commerceDiscountService, _commerceDiscountTargetRegistry,
 				_commerceDiscountUserSegmentRelService, _cpDefinitionService,
-				httpServletRequest, _itemSelector, _portletResourcePermission);
+				httpServletRequest, _itemSelector);
 
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT, commerceDiscountRelDisplayContext);
@@ -129,12 +125,6 @@ public class CommerceDiscountProductsScreenNavigationEntry
 
 	@Reference
 	private CommerceCurrencyLocalService _commerceCurrencyLocalService;
-
-	@Reference(
-		target = "(model.class.name=com.liferay.commerce.discount.model.CommerceDiscount)"
-	)
-	private ModelResourcePermission<CommerceDiscount>
-		_commerceDiscountModelResourcePermission;
 
 	@Reference
 	private CommerceDiscountRelService _commerceDiscountRelService;
@@ -157,11 +147,6 @@ public class CommerceDiscountProductsScreenNavigationEntry
 
 	@Reference
 	private JSPRenderer _jspRenderer;
-
-	@Reference(
-		target = "(resource.name=" + com.liferay.commerce.discount.constants.CommerceDiscountConstants.RESOURCE_NAME + ")"
-	)
-	private PortletResourcePermission _portletResourcePermission;
 
 	@Reference(
 		target = "(osgi.web.symbolicname=com.liferay.commerce.discount.web)"

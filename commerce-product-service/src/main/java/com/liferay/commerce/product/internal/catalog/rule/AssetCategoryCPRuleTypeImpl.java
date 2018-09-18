@@ -16,6 +16,7 @@ package com.liferay.commerce.product.internal.catalog.rule;
 
 import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.commerce.product.catalog.rule.CPRuleType;
 import com.liferay.commerce.product.constants.CPRuleConstants;
@@ -23,19 +24,11 @@ import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPRule;
 import com.liferay.commerce.product.model.CPRuleAssetCategoryRel;
 import com.liferay.commerce.product.service.CPRuleAssetCategoryRelLocalService;
-import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.filter.BooleanFilter;
-import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.ServiceContextFactory;
-import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.UnicodeProperties;
 
 import java.util.HashSet;
 import java.util.List;
@@ -43,15 +36,12 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.function.ToLongFunction;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Alessio Antonio Rendina
  * @author Andrea Di Giorgi
- * @author Ethan Bustad
  */
 @Component(
 	immediate = true,
@@ -94,19 +84,6 @@ public class AssetCategoryCPRuleTypeImpl implements CPRuleType {
 	}
 
 	@Override
-	public UnicodeProperties getTypeSettingsProperties(
-		HttpServletRequest httpServletRequest) {
-
-		UnicodeProperties typeSettingsProperties = new UnicodeProperties(true);
-
-		boolean orSearch = ParamUtil.getBoolean(httpServletRequest, "orSearch");
-
-		typeSettingsProperties.put("orSearch", String.valueOf(orSearch));
-
-		return typeSettingsProperties;
-	}
-
-	@Override
 	public boolean isSatisfied(CPDefinition cpDefinition, CPRule cpRule)
 		throws PortalException {
 
@@ -133,20 +110,6 @@ public class AssetCategoryCPRuleTypeImpl implements CPRuleType {
 			BooleanFilter booleanFilter, CPRule cpRule)
 		throws PortalException {
 
-		BooleanFilter assetCategoryBooleanFilter = new BooleanFilter();
-
-		BooleanClauseOccur booleanClauseOccur = BooleanClauseOccur.MUST;
-
-		UnicodeProperties typeSettingsProperties =
-			cpRule.getTypeSettingsProperties();
-
-		boolean orSearch = GetterUtil.getBoolean(
-			typeSettingsProperties.get("orSearch"));
-
-		if (orSearch) {
-			booleanClauseOccur = BooleanClauseOccur.SHOULD;
-		}
-
 		List<CPRuleAssetCategoryRel> cpRuleAssetCategoryRels =
 			_cpRuleAssetCategoryRelLocalService.getCPRuleAssetCategoryRels(
 				cpRule.getCPRuleId());
@@ -154,62 +117,10 @@ public class AssetCategoryCPRuleTypeImpl implements CPRuleType {
 		for (CPRuleAssetCategoryRel cpRuleAssetCategoryRel :
 				cpRuleAssetCategoryRels) {
 
-			assetCategoryBooleanFilter.addTerm(
+			booleanFilter.addTerm(
 				_FIELD_CP_RULE_ASSET_CATEGORY_IDS,
 				String.valueOf(cpRuleAssetCategoryRel.getAssetCategoryId()),
-				booleanClauseOccur);
-		}
-
-		booleanFilter.add(assetCategoryBooleanFilter, BooleanClauseOccur.MUST);
-	}
-
-	@Override
-	public void update(CPRule cpRule, HttpServletRequest httpServletRequest)
-		throws PortalException {
-
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			httpServletRequest);
-
-		String assetCategoryIds = ParamUtil.getString(
-			httpServletRequest, "assetCategoryIds");
-
-		String[] assetCategoryIdsArray = StringUtil.split(
-			assetCategoryIds, StringPool.COMMA);
-
-		List<CPRuleAssetCategoryRel> cpRuleAssetCategoryRels =
-			_cpRuleAssetCategoryRelLocalService.getCPRuleAssetCategoryRels(
-				cpRule.getCPRuleId());
-
-		for (CPRuleAssetCategoryRel cpRuleAssetCategoryRel :
-				cpRuleAssetCategoryRels) {
-
-			if (ArrayUtil.contains(
-					assetCategoryIdsArray,
-					String.valueOf(
-						cpRuleAssetCategoryRel.getAssetCategoryId()))) {
-
-				continue;
-			}
-
-			_cpRuleAssetCategoryRelLocalService.deleteCPRuleAssetCategoryRel(
-				cpRuleAssetCategoryRel.getCPRuleAssetCategoryRelId());
-		}
-
-		long[] cpRuleAssetCategoryIds =
-			_cpRuleAssetCategoryRelLocalService.getAssetCategoryIds(
-				cpRule.getCPRuleId());
-
-		for (String newAssetCategoryId : assetCategoryIdsArray) {
-			long assetCategoryId = GetterUtil.getLong(newAssetCategoryId);
-
-			if (ArrayUtil.contains(cpRuleAssetCategoryIds, assetCategoryId)) {
-				continue;
-			}
-
-			if (assetCategoryId > 0) {
-				_cpRuleAssetCategoryRelLocalService.addCPRuleAssetCategoryRel(
-					cpRule.getCPRuleId(), assetCategoryId, serviceContext);
-			}
+				BooleanClauseOccur.MUST);
 		}
 	}
 
@@ -243,6 +154,9 @@ public class AssetCategoryCPRuleTypeImpl implements CPRuleType {
 
 	private static final String _FIELD_CP_RULE_ASSET_CATEGORY_IDS =
 		"cpRuleAssetCategoryIds";
+
+	@Reference
+	private AssetCategoryLocalService _assetCategoryLocalService;
 
 	@Reference
 	private AssetEntryLocalService _assetEntryLocalService;

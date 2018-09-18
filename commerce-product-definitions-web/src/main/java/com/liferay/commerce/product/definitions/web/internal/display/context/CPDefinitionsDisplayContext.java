@@ -40,9 +40,6 @@ import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
-import com.liferay.portal.kernel.security.permission.ActionKeys;
-import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
-import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HtmlUtil;
@@ -74,10 +71,7 @@ public class CPDefinitionsDisplayContext
 	public CPDefinitionsDisplayContext(
 			ActionHelper actionHelper, HttpServletRequest httpServletRequest,
 			CPDefinitionHelper cpDefinitionHelper,
-			ModelResourcePermission<CPDefinition>
-				cpDefinitionModelResourcePermission,
-			CPDefinitionService cpDefinitionService, ItemSelector itemSelector,
-			PortletResourcePermission portletResourcePermission)
+			CPDefinitionService cpDefinitionService, ItemSelector itemSelector)
 		throws PortalException {
 
 		super(
@@ -87,11 +81,8 @@ public class CPDefinitionsDisplayContext
 		setDefaultOrderByType("desc");
 
 		_cpDefinitionHelper = cpDefinitionHelper;
-		_cpDefinitionModelResourcePermission =
-			cpDefinitionModelResourcePermission;
 		_cpDefinitionService = cpDefinitionService;
 		_itemSelector = itemSelector;
-		_portletResourcePermission = portletResourcePermission;
 	}
 
 	public String getCategorySelectorURL(String eventName) throws Exception {
@@ -354,41 +345,8 @@ public class CPDefinitionsDisplayContext
 			getCPDefinitionId(), null);
 	}
 
-	public boolean hasDeletePermission(long cpDefinitionId)
-		throws PortalException {
-
-		return _cpDefinitionModelResourcePermission.contains(
-			cpRequestHelper.getPermissionChecker(), cpDefinitionId,
-			ActionKeys.DELETE);
-	}
-
-	public boolean hasEditPermission(long cpDefinitionId)
-		throws PortalException {
-
-		return _cpDefinitionModelResourcePermission.contains(
-			cpRequestHelper.getPermissionChecker(), cpDefinitionId,
-			ActionKeys.UPDATE);
-	}
-
-	public boolean hasPermission(String actionId) {
-		return _portletResourcePermission.contains(
-			cpRequestHelper.getPermissionChecker(),
-			cpRequestHelper.getScopeGroupId(), actionId);
-	}
-
-	public boolean hasViewPermission(long cpDefinitionId)
-		throws PortalException {
-
-		return _cpDefinitionModelResourcePermission.contains(
-			cpRequestHelper.getPermissionChecker(), cpDefinitionId,
-			ActionKeys.VIEW);
-	}
-
 	private final CPDefinitionHelper _cpDefinitionHelper;
-	private final ModelResourcePermission<CPDefinition>
-		_cpDefinitionModelResourcePermission;
 	private final CPDefinitionService _cpDefinitionService;
 	private final ItemSelector _itemSelector;
-	private final PortletResourcePermission _portletResourcePermission;
 
 }

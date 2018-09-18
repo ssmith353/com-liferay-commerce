@@ -46,6 +46,7 @@ import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
@@ -156,6 +157,8 @@ public class CPDefinitionHelperImpl implements CPDefinitionHelper {
 
 		String currentSiteURL = _portal.getGroupFriendlyURL(
 			layout.getLayoutSet(), themeDisplay);
+
+		currentSiteURL = StringUtil.replace(currentSiteURL, "/widget", "");
 
 		return currentSiteURL + CPConstants.SEPARATOR_PRODUCT_URL +
 			cpFriendlyURLEntry.getUrlTitle();

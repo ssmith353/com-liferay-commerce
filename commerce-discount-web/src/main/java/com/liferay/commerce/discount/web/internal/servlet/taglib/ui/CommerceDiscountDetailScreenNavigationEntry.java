@@ -18,7 +18,6 @@ import com.liferay.commerce.discount.model.CommerceDiscount;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import java.io.IOException;
@@ -64,10 +63,7 @@ public class CommerceDiscountDetailScreenNavigationEntry
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
 			"content.Language", locale, getClass());
 
-		return LanguageUtil.get(
-			resourceBundle,
-			CommerceDiscountScreenNavigationConstants.
-				ENTRY_KEY_COMMERCE_DISCOUNT_DETAIL);
+		return "Detail";
 	}
 
 	@Override

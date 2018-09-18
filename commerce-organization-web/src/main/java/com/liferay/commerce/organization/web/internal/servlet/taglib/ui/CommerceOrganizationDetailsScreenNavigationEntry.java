@@ -49,7 +49,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	configurationPid = "com.liferay.user.admin.configuration.UserFileUploadsConfiguration",
-	property = "screen.navigation.entry.order:Integer=10",
+	property = "screen.navigation.entry.order:Integer=15",
 	service = {ScreenNavigationCategory.class, ScreenNavigationEntry.class}
 )
 public class CommerceOrganizationDetailsScreenNavigationEntry

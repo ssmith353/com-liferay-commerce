@@ -45,7 +45,7 @@ public class CPSpecificationOptionServiceImpl
 
 		_portletResourcePermission.check(
 			getPermissionChecker(), serviceContext.getScopeGroupId(),
-			CPActionKeys.MANAGE_COMMERCE_PRODUCT_SPECIFICATION_OPTIONS);
+			CPActionKeys.ADD_COMMERCE_PRODUCT_SPECIFICATION_OPTION);
 
 		return cpSpecificationOptionLocalService.addCPSpecificationOption(
 			cpOptionCategoryId, titleMap, descriptionMap, facetable, key,

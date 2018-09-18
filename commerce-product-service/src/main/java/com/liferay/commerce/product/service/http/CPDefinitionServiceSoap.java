@@ -177,12 +177,10 @@ public class CPDefinitionServiceSoap {
 	}
 
 	public static void deleteAssetCategoryCPDefinition(long cpDefinitionId,
-		long categoryId,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws RemoteException {
+		long categoryId) throws RemoteException {
 		try {
 			CPDefinitionServiceUtil.deleteAssetCategoryCPDefinition(cpDefinitionId,
-				categoryId, serviceContext);
+				categoryId);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

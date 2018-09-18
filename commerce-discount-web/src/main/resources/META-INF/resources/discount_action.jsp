@@ -17,8 +17,6 @@
 <%@ include file="/init.jsp" %>
 
 <%
-CommerceDiscountDisplayContext commerceDiscountDisplayContext = (CommerceDiscountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
-
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
 CommerceDiscount commerceDiscount = (CommerceDiscount)row.getObject();
@@ -31,28 +29,24 @@ CommerceDiscount commerceDiscount = (CommerceDiscount)row.getObject();
 	message="<%= StringPool.BLANK %>"
 	showWhenSingleIcon="<%= true %>"
 >
-	<c:if test="<%= commerceDiscountDisplayContext.hasPermission(commerceDiscount.getCommerceDiscountId(), ActionKeys.UPDATE) %>">
-		<portlet:renderURL var="editURL">
-			<portlet:param name="mvcRenderCommandName" value="editCommerceDiscount" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="commerceDiscountId" value="<%= String.valueOf(commerceDiscount.getCommerceDiscountId()) %>" />
-		</portlet:renderURL>
+	<portlet:renderURL var="editURL">
+		<portlet:param name="mvcRenderCommandName" value="editCommerceDiscount" />
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+		<portlet:param name="commerceDiscountId" value="<%= String.valueOf(commerceDiscount.getCommerceDiscountId()) %>" />
+	</portlet:renderURL>
 
-		<liferay-ui:icon
-			message="edit"
-			url="<%= editURL %>"
-		/>
-	</c:if>
+	<liferay-ui:icon
+		message="edit"
+		url="<%= editURL %>"
+	/>
 
-	<c:if test="<%= commerceDiscountDisplayContext.hasPermission(commerceDiscount.getCommerceDiscountId(), ActionKeys.DELETE) %>">
-		<portlet:actionURL name="editCommerceDiscount" var="deleteURL">
-			<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="commerceDiscountId" value="<%= String.valueOf(commerceDiscount.getCommerceDiscountId()) %>" />
-		</portlet:actionURL>
+	<portlet:actionURL name="editCommerceDiscount" var="deleteURL">
+		<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+		<portlet:param name="commerceDiscountId" value="<%= String.valueOf(commerceDiscount.getCommerceDiscountId()) %>" />
+	</portlet:actionURL>
 
-		<liferay-ui:icon-delete
-			url="<%= deleteURL %>"
-		/>
-	</c:if>
+	<liferay-ui:icon-delete
+		url="<%= deleteURL %>"
+	/>
 </liferay-ui:icon-menu>
