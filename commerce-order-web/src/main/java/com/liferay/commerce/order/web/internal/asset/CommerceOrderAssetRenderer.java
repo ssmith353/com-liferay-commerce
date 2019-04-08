@@ -15,12 +15,18 @@
 package com.liferay.commerce.order.web.internal.asset;
 
 import com.liferay.asset.kernel.model.BaseJSPAssetRenderer;
+import com.liferay.commerce.model.CommerceAddress;
+import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.model.CommerceOrder;
+import com.liferay.commerce.model.CommerceRegion;
 import com.liferay.commerce.order.web.security.permission.resource.CommerceOrderPermission;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Phone;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.PortletProvider;
@@ -28,8 +34,13 @@ import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ResourceBundleLoader;
+import org.osgi.service.component.annotations.Reference;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -38,6 +49,7 @@ import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Andrea Di Giorgi
@@ -74,14 +86,190 @@ public class CommerceOrderAssetRenderer
 	public String getJspPath(
 		HttpServletRequest httpServletRequest, String template) {
 
-		return null;
+		return "/asset/full_content.jsp";
 	}
 
 	@Override
 	public String getSummary(
 		PortletRequest portletRequest, PortletResponse portletResponse) {
 
-		return StringPool.BLANK;
+		String summary = StringPool.BLANK;
+
+		StringBundler sb = new StringBundler(21);
+
+		try {
+			sb.append("Contact: ");
+
+			User orderUser =
+				UserLocalServiceUtil.fetchUser(_commerceOrder.getUserId());
+
+			if (orderUser != null) {
+				sb.append(orderUser.getFullName());
+				sb.append(StringPool.NEW_LINE);
+			}
+
+			if (orderUser != null) {
+				List<Phone> phones = orderUser.getPhones();
+
+				if (!phones.isEmpty()) {
+					Phone phone = phones.get(0);
+
+					sb.append(phone.getNumber());
+
+					sb.append(StringPool.NEW_LINE);
+				}
+
+				sb.append(orderUser.getEmailAddress());
+
+				CommerceAddress commerceAddress =
+					_commerceOrder.getShippingAddress();
+
+				if (commerceAddress != null) {
+					sb.append("Shipping: ");
+					sb.append(commerceAddress.getStreet1());
+					sb.append(StringPool.NEW_LINE);
+					sb.append(commerceAddress.getCity());
+
+					CommerceRegion commerceRegion =
+						commerceAddress.getCommerceRegion();
+
+					if (commerceRegion != null) {
+						sb.append(StringPool.COMMA);
+						sb.append(StringPool.SPACE);
+						sb.append(commerceRegion.getName());
+						sb.append(StringPool.SPACE);
+						sb.append(commerceAddress.getZip());
+						sb.append(StringPool.SPACE);
+					}
+
+					CommerceCountry commerceCountry =
+						commerceAddress.getCommerceCountry();
+
+					if (commerceCountry != null) {
+						sb.append(StringPool.NEW_LINE);
+						sb.append(
+							commerceCountry.getName(
+								LocaleUtil.getMostRelevantLocale()));
+					}
+
+					sb.append(StringPool.NEW_LINE);
+
+				}
+			}
+		}
+		catch (Exception e) {
+		}
+		finally {
+			summary = sb.toString();
+		}
+
+		return summary;
+	}
+
+	@Override
+	public boolean include(
+		HttpServletRequest request, HttpServletResponse response,
+		String template)
+		throws Exception {
+
+		String summary = StringPool.BLANK;
+		String address = StringPool.BLANK;
+
+		StringBundler contactSummary = new StringBundler(21);
+
+		long userId = _commerceOrder.getUserId();
+
+		System.out.println("userId " + userId);
+
+		try {
+			User orderUser =
+				UserLocalServiceUtil.fetchUser(_commerceOrder.getUserId());
+
+			if (orderUser != null) {
+				contactSummary.append(orderUser.getFullName());
+				contactSummary.append("<br>");
+
+				System.out.println("order user was not null");
+			}
+			else {
+				System.out.println("order user was null");
+			}
+
+			if (orderUser != null) {
+				List<Phone> phones = orderUser.getPhones();
+
+				if (!phones.isEmpty()) {
+					Phone phone = phones.get(0);
+
+					contactSummary.append(phone.getNumber());
+
+					contactSummary.append("<br>");
+				}
+
+				contactSummary.append("<a href=\"mailto:");
+				contactSummary.append(orderUser.getEmailAddress());
+				contactSummary.append("\">");
+				contactSummary.append(orderUser.getEmailAddress());
+				contactSummary.append("</a>");
+
+
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			summary = contactSummary.toString();
+		}
+
+		StringBundler addressSummary = new StringBundler(21);
+
+		try {
+			CommerceAddress commerceAddress =
+				_commerceOrder.getShippingAddress();
+
+			if (commerceAddress != null) {
+				addressSummary.append(commerceAddress.getStreet1());
+				addressSummary.append("<br>");
+				addressSummary.append(commerceAddress.getCity());
+
+				CommerceRegion commerceRegion =
+					commerceAddress.getCommerceRegion();
+
+				if (commerceRegion != null) {
+					addressSummary.append(StringPool.COMMA);
+					addressSummary.append(StringPool.SPACE);
+					addressSummary.append(commerceRegion.getName());
+					addressSummary.append(StringPool.SPACE);
+					addressSummary.append(commerceAddress.getZip());
+					addressSummary.append(StringPool.SPACE);
+				}
+
+				CommerceCountry commerceCountry =
+					commerceAddress.getCommerceCountry();
+
+				if (commerceCountry != null) {
+					addressSummary.append("<br>");
+					addressSummary.append(
+						commerceCountry.getName(
+							LocaleUtil.getMostRelevantLocale()));
+				}
+
+				addressSummary.append("<br>");
+			}
+		}
+		catch (Exception e) {
+
+		}
+		finally {
+			address = addressSummary.toString();
+		}
+
+		request.setAttribute("ADDRESS", address);
+		request.setAttribute("COMMERCE_ORDER", _commerceOrder);
+		request.setAttribute("SUMMARY", summary);
+
+		return super.include(request, response, template);
 	}
 
 	@Override
