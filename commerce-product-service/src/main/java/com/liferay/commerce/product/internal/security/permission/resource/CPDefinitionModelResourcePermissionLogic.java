@@ -75,7 +75,7 @@ public class CPDefinitionModelResourcePermissionLogic
 		List<CPRule> cpRules = CPRulesThreadLocal.getCPRules();
 
 		if (ListUtil.isEmpty(cpRules)) {
-			return false;
+			return true;
 		}
 
 		boolean matchAll = true;

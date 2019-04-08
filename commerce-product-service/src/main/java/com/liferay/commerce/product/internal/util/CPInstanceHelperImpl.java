@@ -32,6 +32,7 @@ import com.liferay.commerce.product.service.CPAttachmentFileEntryService;
 import com.liferay.commerce.product.service.CPDefinitionOptionRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionOptionValueRelLocalService;
 import com.liferay.commerce.product.service.CPDefinitionService;
+import com.liferay.commerce.product.service.CPInstanceLocalService;
 import com.liferay.commerce.product.service.CPInstanceService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.product.util.DDMFormValuesHelper;
@@ -410,7 +411,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 		long cpInstanceId = GetterUtil.getLong(
 			document.get(Field.ENTRY_CLASS_PK));
 
-		return _cpInstanceService.fetchCPInstance(cpInstanceId);
+		return _cpInstanceLocalService.fetchCPInstance(cpInstanceId);
 	}
 
 	@Override
@@ -428,7 +429,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 	public String getCPInstanceThumbnailSrc(long cpInstanceId)
 		throws Exception {
 
-		CPInstance cpInstance = _cpInstanceService.fetchCPInstance(
+		CPInstance cpInstance = _cpInstanceLocalService.fetchCPInstance(
 			cpInstanceId);
 
 		if (cpInstance == null) {
@@ -910,7 +911,7 @@ public class CPInstanceHelperImpl implements CPInstanceHelper {
 	private CPDefinitionService _cpDefinitionService;
 
 	@Reference
-	private CPInstanceService _cpInstanceService;
+	private CPInstanceLocalService _cpInstanceLocalService;
 
 	@Reference
 	private DDMFormFieldTypeServicesTracker _ddmFormFieldTypeServicesTracker;
