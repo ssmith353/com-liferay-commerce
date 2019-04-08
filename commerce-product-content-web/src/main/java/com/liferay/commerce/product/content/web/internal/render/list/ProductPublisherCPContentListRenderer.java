@@ -20,6 +20,8 @@ import com.liferay.commerce.product.content.render.list.CPContentListRenderer;
 import com.liferay.commerce.product.content.util.CPContentHelper;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import java.util.Locale;
@@ -67,6 +69,12 @@ public class ProductPublisherCPContentListRenderer
 
 		httpServletRequest.setAttribute(
 			CPContentWebKeys.CP_CONTENT_HELPER, _cpContentHelper);
+
+		ServiceContext serviceContext = ServiceContextThreadLocal.getServiceContext();
+
+		long userId = serviceContext.getUserId();
+
+		httpServletRequest.setAttribute("USER_ID", userId);
 
 		_jspRenderer.renderJSP(
 			httpServletRequest, httpServletResponse,
