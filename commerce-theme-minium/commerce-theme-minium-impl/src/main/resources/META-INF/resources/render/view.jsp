@@ -24,6 +24,8 @@ CPSku cpSku = cpContentHelper.getDefaultCPSku(cpCatalogEntry);
 
 long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 
+long userId = (long)request.getAttribute("USER_ID");
+
 String addToCartId = PortalUtil.generateRandomKey(request, "add-to-cart");
 String galleryId = PortalUtil.generateRandomKey(request, "gallery");
 NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
@@ -84,6 +86,14 @@ NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
 						<div class="stockQuantity" data-text-cp-instance-stock-quantity></div>
 					</c:otherwise>
 				</c:choose>
+
+				<div class="autofit-float autofit-row" style="margin-top:15px;">
+					<liferay-ui:ratings
+						className="<%= CPCatalogEntry.class.getName() %>"
+						classPK="<%= cpCatalogEntry.getCPDefinitionId() %>"
+						type="stars"
+					/>
+				</div>
 			</header>
 
 			<p><%= cpCatalogEntry.getDescription() %></p>
@@ -217,9 +227,7 @@ NPMResolver npmResolver = NPMResolverProvider.getNPMResolver();
 
 			<h2 class="commerce-price" data-text-cp-instance-price>
 				<c:if test="<%= cpSku != null %>">
-					<commerce-ui:price
-						CPInstanceId="<%= cpSku.getCPInstanceId() %>"
-					/>
+					<div class="price"><liferay-commerce:price CPDefinitionId="<%= cpDefinitionId %>" CPInstanceId="<%= cpSku.getCPInstanceId() %>" /></div>
 				</c:if>
 			</h2>
 
@@ -355,3 +363,23 @@ List<CPMedia> cpAttachmentFileEntries = cpContentHelper.getCPAttachmentFileEntri
 		</div>
 	</div>
 </c:if>
+
+<div class="row">
+	<div class="col">
+		<div class="commerce-panel">
+			<div class="commerce-panel__title"><%= LanguageUtil.get(resourceBundle, "reviews") %></div>
+			<portlet:actionURL name="invokeTaglibDiscussion" var="discussionURL" />
+
+			<liferay-ui:discussion
+				className="<%= CPCatalogEntry.class.getName() %>"
+				classPK="<%= cpCatalogEntry.getCPDefinitionId() %>"
+				formAction="<%= discussionURL %>"
+				formName="fm2"
+				ratingsEnabled="<%= true %>"
+				redirect="<%= currentURL %>"
+				userId="<%= userId %>"
+			/>
+
+			</div>
+	</div>
+</div>

@@ -270,9 +270,9 @@ public class PriceTag extends IncludeTag {
 		_decimalFormat = new DecimalFormat();
 
 		_decimalFormat.setMaximumFractionDigits(
-			roundingTypeConfiguration.maximumFractionDigits());
+			0);
 		_decimalFormat.setMinimumFractionDigits(
-			roundingTypeConfiguration.minimumFractionDigits());
+			0);
 		_decimalFormat.setRoundingMode(
 			roundingTypeConfiguration.roundingMode());
 	}

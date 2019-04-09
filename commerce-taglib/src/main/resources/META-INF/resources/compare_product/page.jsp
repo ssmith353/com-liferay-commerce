@@ -23,6 +23,12 @@ CPDefinition cpDefinition = (CPDefinition)request.getAttribute("liferay-commerce
 String randomNamespace = PortalUtil.generateRandomKey(request, "taglib_commerce_compare_product_page") + StringPool.UNDERLINE;
 %>
 
+<style>
+	.form-inline label {
+		display: flex;
+	}
+</style>
+
 <liferay-portlet:actionURL name="editCompareProduct" portletName="<%= CPPortletKeys.CP_COMPARE_CONTENT_WEB %>" var="editCompareProductActionURL" />
 
 <div class="commerce-compare-product-container">
@@ -30,6 +36,8 @@ String randomNamespace = PortalUtil.generateRandomKey(request, "taglib_commerce_
 		<aui:input name="redirect" type="hidden" value="<%= PortalUtil.getCurrentURL(request) %>" />
 		<aui:input name="cpDefinitionId" type="hidden" value="<%= cpDefinition.getCPDefinitionId() %>" />
 
-		<aui:input checked="<%= checked %>" ignoreRequestValue="<%= true %>" label="compare" name='<%= cpDefinition.getCPDefinitionId() + "Compare" %>' onClick="this.form.submit();" type="checkbox" />
+		<div style="display: flex;">
+			<aui:input checked="<%= checked %>" ignoreRequestValue="<%= true %>" label="compare" name='<%= cpDefinition.getCPDefinitionId() + "Compare" %>' onClick="this.form.submit();" type="checkbox" />
+		</div>
 	</aui:form>
 </div>
