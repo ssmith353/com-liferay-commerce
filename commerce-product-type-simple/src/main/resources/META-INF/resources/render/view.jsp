@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.math.BigDecimal" %><%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -30,25 +30,7 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 		<div class="row">
 			<div class="col-lg-6 col-md-7">
 				<div class="row">
-					<div class="col-lg-2 col-md-3 col-xs-2">
-						<div id="<portlet:namespace />thumbs-container">
-
-							<%
-							for (CPMedia cpMedia : cpContentHelper.getImages(cpDefinitionId, themeDisplay)) {
-							%>
-
-								<div class="card thumb" data-url="<%= cpMedia.getUrl() %>">
-									<img class="center-block img-responsive" src="<%= cpMedia.getUrl() %>" />
-								</div>
-
-							<%
-							}
-							%>
-
-						</div>
-					</div>
-
-					<div class="col-lg-10 col-md-9 col-xs-10 full-image">
+					<div class="col-lg-12 col-md-12 col-xs-12 full-image">
 						<c:if test="<%= Validator.isNotNull(cpCatalogEntry.getDefaultImageFileUrl()) %>">
 							<img class="center-block img-responsive" id="<portlet:namespace />full-image" src="<%= cpCatalogEntry.getDefaultImageFileUrl() %>" />
 						</c:if>
@@ -63,7 +45,7 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 					<c:when test="<%= cpSku != null %>">
 						<h4 class="sku"><%= HtmlUtil.escape(cpSku.getSku()) %></h4>
 
-						<div class="price"><liferay-commerce:price CPDefinitionId="<%= cpDefinitionId %>" CPInstanceId="<%= cpSku.getCPInstanceId() %>" /></div>
+						<div class="price"><liferay-commerce:price CPDefinitionId="<%= cpDefinitionId %>" CPInstanceId="<%= cpSku.getCPInstanceId() %>" showDiscount="<%= false %>" showDiscountAmount="<%= false %>" /></div>
 
 						<div class="subscription-info"><liferay-commerce:subscription-info CPInstanceId="<%= cpSku.getCPInstanceId() %>" /></div>
 
@@ -97,7 +79,7 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 				</div>
 
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-12" style="display: flex;">
 						<liferay-commerce:compare-product CPDefinitionId="<%= cpDefinitionId %>" />
 					</div>
 				</div>
@@ -117,7 +99,7 @@ long cpDefinitionId = cpCatalogEntry.getCPDefinitionId();
 	List<CPMedia> cpMediaEntries = cpContentHelper.getCPAttachmentFileEntries(cpDefinitionId, themeDisplay);
 	%>
 
-	<div class="row">
+	<div class="row" style="margin-top: 5%">
 		<div class="product-detail-body w-100">
 			<div class="nav-tabs-centered">
 				<ul class="justify-content-center nav nav-tabs" role="tablist">

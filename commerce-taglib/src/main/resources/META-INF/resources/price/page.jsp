@@ -48,12 +48,40 @@ boolean showPriceRange = (boolean)request.getAttribute("liferay-commerce:price:s
 	<c:otherwise>
 		<c:choose>
 			<c:when test="<%= showDiscount && Validator.isNotNull(formattedPromoPrice) %>">
-				<span class="product-promo-price">
-					<%= Validator.isNull(promoPriceLabel) ? StringPool.BLANK : promoPriceLabel %>
 
-					<del><%= formattedPrice %></del>
-				</span>
-				<span class="product-price"><%= formattedPromoPrice %></span>
+				<table class="a-lineitem">
+					<tbody>
+
+
+					<tr id="regularprice_savings">
+						<td class="a-color-secondary a-size-base a-text-right a-nowrap">You Save:</td>
+						<td class="a-span12 a-color-price a-size-base priceBlockSavingsString">$30.00 (23%)</td>
+					</tr>
+					<tr id="priceblock_snsupsell_row" class="aok-hidden">
+						<td colspan="2">
+            <span class="a-size-base a-color-price">
+            </span>
+						</td>
+					</tr>
+					</tbody>
+
+					<c:if test="<%= Validator.isNull(promoPriceLabel) %>">
+						<tr>
+							<td class="product-promo-price">List Price:</td>
+							<td class="a-span12 a-color-secondary a-size-base">
+								<del><%= formattedPrice %></del>
+							</td>
+						</tr>
+					</c:if>
+
+					<tr id="priceblock_ourprice_row">
+						<td id="priceblock_ourprice_lbl" class="a-color-secondary a-size-base a-text-right a-nowrap">Price:</td>
+						<td class="a-span12">
+							<span class="product-price" style="color:#B12704;"><%= formattedPromoPrice %></span>
+						</td>
+					</tr>
+
+				<span style="font-size: 16px;font-weight: 500;">Price: </span>
 
 				<c:if test="<%= commerceDiscountValue != null %>">
 
@@ -93,12 +121,13 @@ boolean showPriceRange = (boolean)request.getAttribute("liferay-commerce:price:s
 									</c:if>
 								</c:when>
 								<c:otherwise>
-									<span class="discount-percentage"><%= decimalFormat.format(commerceDiscountValue.getDiscountPercentage()) %></span>
+									<span style="font-size: 16px;font-weight: 500;">You Save: <span class="discount-percentage" style="color:#B12704;"><%= decimalFormat.format(commerceDiscountValue.getDiscountPercentage()) %></span></span>
 								</c:otherwise>
 							</c:choose>
 						</c:if>
 					</span>
 				</c:if>
+				</table>
 			</c:when>
 			<c:otherwise>
 				<c:choose>
@@ -113,3 +142,4 @@ boolean showPriceRange = (boolean)request.getAttribute("liferay-commerce:price:s
 		</c:choose>
 	</c:otherwise>
 </c:choose>
+
