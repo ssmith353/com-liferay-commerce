@@ -27,16 +27,25 @@ import com.liferay.commerce.product.service.CPAttachmentFileEntryLocalService;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CProductLocalService;
 import com.liferay.commerce.product.service.CommerceCatalogLocalService;
+import com.liferay.document.library.kernel.model.DLFileEntryMetadata;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
+import com.liferay.document.library.kernel.service.DLFileEntryMetadataLocalService;
+import com.liferay.dynamic.data.mapping.kernel.DDMFormFieldValue;
+import com.liferay.dynamic.data.mapping.kernel.DDMFormValues;
+import com.liferay.dynamic.data.mapping.kernel.StorageEngineManagerUtil;
+import com.liferay.dynamic.data.mapping.kernel.Value;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProviderUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
@@ -53,11 +62,13 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.URLCodec;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portlet.asset.service.permission.AssetCategoryPermission;
 
 import java.io.IOException;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -165,6 +176,14 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 		Locale siteDefaultLocale = _portal.getSiteDefaultLocale(
 			cpAttachmentFileEntry.getGroupId());
 
+		// Serve Google drive URL instead if has the Drive metadata
+
+		String driveURL = getUrl(cpAttachmentFileEntry.getFileEntry());
+
+		if (Validator.isNotNull(driveURL)) {
+			return driveURL;
+		}
+
 		String className = cpAttachmentFileEntry.getClassName();
 
 		sb.append(
@@ -255,6 +274,49 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 		}
 	}
 
+	protected JSONObject extractDDMContent(
+		List<DLFileEntryMetadata> dlFileEntryMetadatas) {
+
+		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+		try {
+			for (DLFileEntryMetadata dlFileEntryMetadata :
+					dlFileEntryMetadatas) {
+
+				DDMFormValues ddmFormValues = null;
+
+				try {
+					ddmFormValues = StorageEngineManagerUtil.getDDMFormValues(
+						dlFileEntryMetadata.getDDMStorageId());
+
+					Map<String, List<DDMFormFieldValue>> ddmFormFieldValuesMap =
+						ddmFormValues.getDDMFormFieldValuesMap();
+
+					for (String ddmKey : ddmFormFieldValuesMap.keySet()) {
+						List<DDMFormFieldValue> ddmFormFieldValuesList =
+							ddmFormFieldValuesMap.get(ddmKey);
+
+						DDMFormFieldValue ddmFormFieldValue =
+							ddmFormFieldValuesList.get(0);
+
+						Value value = ddmFormFieldValue.getValue();
+
+						String result = value.getString(
+							value.getDefaultLocale());
+
+						jsonObject.put(ddmKey, result);
+					}
+				}
+				catch (Exception e) {
+				}
+			}
+		}
+		catch (Exception e) {
+		}
+
+		return jsonObject;
+	}
+
 	protected byte[] getBytes(FileEntry fileEntry)
 		throws IOException, PortalException {
 
@@ -321,6 +383,33 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 		}
 
 		return 0;
+	}
+
+	protected String getUrl(FileEntry fileEntry) throws PortalException {
+		FileVersion fileVersion = fileEntry.getFileVersion();
+
+		List<DLFileEntryMetadata> dlFileEntryMetadataList =
+			_dlFileEntryMetadataLocalService.getFileVersionFileEntryMetadatas(
+				fileVersion.getFileVersionId());
+
+		if (!dlFileEntryMetadataList.isEmpty()) {
+			JSONObject ddmContentJSONObject = extractDDMContent(
+				dlFileEntryMetadataList);
+
+			String driveFileId = ddmContentJSONObject.getString("ID");
+
+			if (Validator.isNotNull(driveFileId)) {
+				String driveURL =
+					"https://drive.google.com/a/liferay.com/uc?authuser=0&id=";
+
+				driveURL += driveFileId;
+				driveURL += "&export=download";
+
+				return driveURL;
+			}
+		}
+
+		return StringPool.BLANK;
 	}
 
 	protected void sendDefaultMediaBytes(
@@ -427,6 +516,9 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 
 	@Reference
 	private DLAppLocalService _dlAppLocalService;
+
+	@Reference
+	private DLFileEntryMetadataLocalService _dlFileEntryMetadataLocalService;
 
 	@Reference
 	private File _file;
