@@ -58,34 +58,7 @@ html {
 	}
 
 	input[type="checkbox"] {
-		-webkit-appearance: none;
-		background: #FFF;
-		border: 2px solid rgba(157, 158, 158, 0.5);
-		border-radius: 4px;
-		height: 16px;
-		position: relative;
-		width: 16px;
-
-		&::after {
-			border-bottom: 2px solid $color-theme;
-			border-left: 2px solid $color-theme;
-			content: '';
-			height: 5px;
-			left: 50%;
-			position: absolute;
-			top: 50%;
-			transform: translate(-50%, -63%) rotate(-45deg) scale(0);
-			transition: all $micro-transition;
-			width: 8px;
-		}
-
-		&:checked {
-			border-color: $color-theme;
-
-			&::after {
-				transform: translate(-50%, -63%) rotate(-45deg) scale(1);
-			}
-		}
+		margin-right: 8px;
 	}
 
 	.container-fluid-max-xl {
