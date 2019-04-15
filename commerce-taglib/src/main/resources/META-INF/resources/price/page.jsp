@@ -49,24 +49,10 @@ boolean showPriceRange = (boolean)request.getAttribute("liferay-commerce:price:s
 		<c:choose>
 			<c:when test="<%= showDiscount && Validator.isNotNull(formattedPromoPrice) %>">
 
-				<table class="a-lineitem">
+				<table class="a-lineitem" style="font-size: 16px;font-weight: 500;">
 					<tbody>
-
-
-					<tr id="regularprice_savings">
-						<td class="a-color-secondary a-size-base a-text-right a-nowrap">You Save:</td>
-						<td class="a-span12 a-color-price a-size-base priceBlockSavingsString">$30.00 (23%)</td>
-					</tr>
-					<tr id="priceblock_snsupsell_row" class="aok-hidden">
-						<td colspan="2">
-            <span class="a-size-base a-color-price">
-            </span>
-						</td>
-					</tr>
-					</tbody>
-
 					<c:if test="<%= Validator.isNull(promoPriceLabel) %>">
-						<tr>
+						<tr style="font-size: 16px;font-weight: 500;">
 							<td class="product-promo-price">List Price:</td>
 							<td class="a-span12 a-color-secondary a-size-base">
 								<del><%= formattedPrice %></del>
@@ -75,13 +61,11 @@ boolean showPriceRange = (boolean)request.getAttribute("liferay-commerce:price:s
 					</c:if>
 
 					<tr id="priceblock_ourprice_row">
-						<td id="priceblock_ourprice_lbl" class="a-color-secondary a-size-base a-text-right a-nowrap">Price:</td>
+						<td id="priceblock_ourprice_lbl" class="a-color-secondary a-size-base a-text-right a-nowrap" style="font-size: 16px;font-weight: 500; text-align: right!important;" >Price:</td>
 						<td class="a-span12">
 							<span class="product-price" style="color:#B12704;"><%= formattedPromoPrice %></span>
 						</td>
 					</tr>
-
-				<span style="font-size: 16px;font-weight: 500;">Price: </span>
 
 				<c:if test="<%= commerceDiscountValue != null %>">
 
@@ -121,7 +105,20 @@ boolean showPriceRange = (boolean)request.getAttribute("liferay-commerce:price:s
 									</c:if>
 								</c:when>
 								<c:otherwise>
-									<span style="font-size: 16px;font-weight: 500;">You Save: <span class="discount-percentage" style="color:#B12704;"><%= decimalFormat.format(commerceDiscountValue.getDiscountPercentage()) %></span></span>
+
+								<tr id="regularprice_savings" style="font-size: 16px;font-weight: 500;">
+								<td class="a-color-secondary a-size-base a-text-right a-nowrap" style="font-size: 16px;font-weight: 500;">You Save:</td>
+								<td class="discount-percentage" style="color:#B12704;" ><%= decimalFormat.format(commerceDiscountValue.getDiscountPercentage()) %></td>
+							</tr>
+							<tr id="priceblock_snsupsell_row" class="aok-hidden">
+								<td colspan="2">
+					<span class="a-size-base a-color-price">
+					</span>
+								</td>
+							</tr>
+							</tbody>
+
+
 								</c:otherwise>
 							</c:choose>
 						</c:if>
