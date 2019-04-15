@@ -72,7 +72,7 @@ if (Validator.isNull(name)) {
 					quantity = multipleOrderQuantity;
 				}
 
-				for (int i = 1; i < 10; i++) {
+				for (int i = 1; i < 100; i++) {
 				%>
 
 					<aui:option label="<%= quantity %>" selected="<%= quantity == value %>" value="<%= quantity %>" />
