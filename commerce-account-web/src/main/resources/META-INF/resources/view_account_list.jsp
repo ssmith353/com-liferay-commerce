@@ -28,7 +28,7 @@ request.setAttribute("view.jsp-filterPerAccount", false);
 	<commerce-ui:table
 		dataProviderKey="commerceAccounts"
 		filter="<%= commerceAccountDisplayContext.getAccountFilter() %>"
-		itemPerPage="<%= 5 %>"
+		itemPerPage="<%= 10 %>"
 		namespace="<%= renderResponse.getNamespace() %>"
 		pageNumber="1"
 		portletURL="<%= commerceAccountDisplayContext.getPortletURL() %>"
