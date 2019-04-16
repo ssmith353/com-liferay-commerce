@@ -74,7 +74,7 @@ public class CommerceAccountMembersScreenNavigationEntry
 
 	@Override
 	public String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, "members");
+		return "Staff";
 	}
 
 	@Override
