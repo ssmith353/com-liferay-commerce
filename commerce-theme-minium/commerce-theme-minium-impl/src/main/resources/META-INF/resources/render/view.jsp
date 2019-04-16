@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/init.jsp" %>
+<%@ include file="../init.jsp" %>
 
 <%
 CPContentHelper cpContentHelper = (CPContentHelper)request.getAttribute(CPContentWebKeys.CP_CONTENT_HELPER);
@@ -49,6 +49,14 @@ String galleryId = PortalUtil.generateRandomKey(request, "gallery");
 
 				<h2 class="minium-product-header__title"><%= HtmlUtil.escape(cpCatalogEntry.getName()) %></h2>
 
+				<div class="autofit-float autofit-row" style="">
+					<liferay-ui:ratings
+						className="<%= CPCatalogEntry.class.getName() %>"
+						classPK="<%= cpCatalogEntry.getCPDefinitionId() %>"
+						type="stars"
+					/>
+				</div>
+
 				<h4 class="minium-product-header__subtitle" data-text-cp-instance-manufacturer-part-number>
 					<%= (cpSku == null) ? StringPool.BLANK : HtmlUtil.escape(cpSku.getManufacturerPartNumber()) %>
 				</h4>
@@ -64,6 +72,7 @@ String galleryId = PortalUtil.generateRandomKey(request, "gallery");
 						<div class="availabilityEstimate"><%= cpContentHelper.getAvailabilityEstimateLabel(request) %></div>
 
 						<div class="stockQuantity"><%= cpContentHelper.getStockQuantityLabel(request) %></div>
+
 					</c:when>
 					<c:otherwise>
 						<div class="availability" data-text-cp-instance-availability></div>
@@ -73,15 +82,9 @@ String galleryId = PortalUtil.generateRandomKey(request, "gallery");
 						<div class="stockQuantity" data-text-cp-instance-stock-quantity></div>
 					</c:otherwise>
 				</c:choose>
-
-				<div class="autofit-float autofit-row" style="margin-top:15px;">
-					<liferay-ui:ratings
-						className="<%= CPCatalogEntry.class.getName() %>"
-						classPK="<%= cpCatalogEntry.getCPDefinitionId() %>"
-						type="stars"
-					/>
-				</div>
 			</header>
+
+			<hr/>
 
 			<p><%= cpCatalogEntry.getDescription() %></p>
 
@@ -357,18 +360,27 @@ List<CPMedia> cpAttachmentFileEntries = cpContentHelper.getCPAttachmentFileEntri
 	<div class="col">
 		<div class="commerce-panel">
 			<div class="commerce-panel__title"><%= LanguageUtil.get(resourceBundle, "reviews") %></div>
-			<portlet:actionURL name="invokeTaglibDiscussion" var="discussionURL" />
 
-			<liferay-ui:discussion
-				className="<%= CPCatalogEntry.class.getName() %>"
-				classPK="<%= cpCatalogEntry.getCPDefinitionId() %>"
-				formAction="<%= discussionURL %>"
-				formName="fm2"
-				ratingsEnabled="<%= true %>"
-				redirect="<%= currentURL %>"
-				userId="<%= userId %>"
-			/>
+				<liferay-comment:discussion
+					className="<%= CPCatalogEntry.class.getName() %>"
+					classPK="<%= cpCatalogEntry.getCPDefinitionId() %>"
+					formName='<%= "fm" + cpCatalogEntry.getCPDefinitionId() %>'
+					ratingsEnabled="<%= false %>"
+					redirect="<%= currentURL %>"
+					userId="<%= userId %>"
+				></liferay-comment:discussion>
 
 			</div>
 	</div>
 </div>
+
+<aui:script>
+	var elements= document.getElementsByClassName('lfr-btn-label')
+
+
+	if (elements && elements.length > 0) {
+		var element = elements[0];
+
+		element.innerHTML = Liferay.Language.get('submit');
+	}
+</aui:script>
