@@ -26,6 +26,7 @@ taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
 taglib uri="http://liferay.com/tld/soy" prefix="soy" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
+<%@ taglib prefix="liferay-comment" uri="http://liferay.com/tld/ui" %>
 
 <%@ page import="com.liferay.commerce.product.catalog.CPCatalogEntry" %><%@
 page import="com.liferay.commerce.product.catalog.CPMedia" %><%@
@@ -43,6 +44,7 @@ page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.PortalUtil" %>
+
 
 <%@ page import="java.util.HashMap" %><%@
 page import="java.util.List" %><%@

@@ -53,7 +53,7 @@ boolean showPriceRange = (boolean)request.getAttribute("liferay-commerce:price:s
 					<tbody>
 					<c:if test="<%= Validator.isNull(promoPriceLabel) %>">
 						<tr style="font-size: 16px;font-weight: 500;">
-							<td class="product-promo-price">List Price:</td>
+							<td class="product-promo-price" style="padding-left: 3px;">List Price:</td>
 							<td class="a-span12 a-color-secondary a-size-base">
 								<del><%= formattedPrice %></del>
 							</td>
