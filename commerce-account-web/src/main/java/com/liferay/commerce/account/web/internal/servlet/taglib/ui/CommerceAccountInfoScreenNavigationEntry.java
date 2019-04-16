@@ -78,7 +78,7 @@ public class CommerceAccountInfoScreenNavigationEntry
 
 	@Override
 	public String getLabel(Locale locale) {
-		return LanguageUtil.get(locale, "info");
+		return "Overview";
 	}
 
 	@Override
