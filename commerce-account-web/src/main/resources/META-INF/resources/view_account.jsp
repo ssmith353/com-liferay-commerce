@@ -178,4 +178,16 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");
 		key="<%= CommerceAccountScreenNavigationConstants.SCREEN_NAVIGATION_KEY %>"
 		portletURL="<%= portletURL %>"
 	/>
+
+	<script>
+		var elements = document.getElementsByClassName('nav');
+
+		var element = (elements.length > 0) ? elements[0] : null;
+
+		if (element) {
+			var style = element.style;
+
+			style.setProperty('justify-content', 'space-evenly');
+		}
+	</script>
 </div>
