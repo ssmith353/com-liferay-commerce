@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.liferay.portal.kernel.util.PortalUtil" %><%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -47,10 +47,10 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 							<div class="portlet-body">
 								<div class="text-right user-tool-asset-addon-entries"> </div>
 								<div class="clearfix journal-content-article" data-analytics-asset-id="83331" data-analytics-asset-title="Orders" data-analytics-asset-type="web-content">
-									<div class="commerce-panel" style="margin-bottom: 0;max-width: 600px;">
-										<div class="commerce-panel__title">
-											<span>Key Performance Indicators</span>
-											<span class="svg-container" style="margin-left: 25%;">
+									<div class="commerce-panel" style="margin-bottom: 0;max-width: 600px;display:flex;">
+										<div class="commerce-panel__title" style="justify-content: space-between;display: flex; width:100%;">
+											<span style="align-self: center;">Key Performance Indicators</span>
+											<span class="svg-container" style="display:flex; align-self:flex-end;cursor: pointer;">
 												<svg width="151" height="40" viewBox="0 0 151 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 													<path fill-rule="evenodd" clip-rule="evenodd" d="M145.551 22.5943L142.216 19.2597C141.928 18.9715 141.928 18.5043 142.216 18.2161C142.504 17.928 142.972 17.928 143.26 18.2161L146.25 21.2064L149.24 18.2161C149.528 17.928 149.996 17.928 150.284 18.2161C150.572 18.5043 150.572 18.9715 150.284 19.2597L146.949 22.5943C146.76 22.7839 146.493 22.8487 146.25 22.7889C146.007 22.8487 145.74 22.7839 145.551 22.5943Z" fill="#9D9E9E"/>
 													<path d="M26.1538 21.915H29.7041V23H24.7949V15.1797H26.1538V21.915ZM36.331 21.1792H33.3017L32.6679 23H31.2553L34.2094 15.1797H35.4286L38.3881 23H36.9701L36.331 21.1792ZM33.683 20.0835H35.9496L34.8163 16.8394L33.683 20.0835ZM44.4671 20.9858C44.4671 20.6421 44.3453 20.3771 44.1019 20.1909C43.8619 20.0047 43.4269 19.8167 42.7967 19.627C42.1665 19.4372 41.6652 19.2259 41.2928 18.9932C40.5802 18.5456 40.2239 17.9619 40.2239 17.2422C40.2239 16.612 40.4799 16.0928 40.992 15.6846C41.5076 15.2764 42.1754 15.0723 42.9954 15.0723C43.5397 15.0723 44.0249 15.1725 44.451 15.373C44.8771 15.5736 45.2119 15.86 45.4554 16.2324C45.6989 16.6012 45.8206 17.0112 45.8206 17.4624H44.4671C44.4671 17.0542 44.3382 16.7355 44.0804 16.5063C43.8261 16.2736 43.4609 16.1572 42.9847 16.1572C42.5407 16.1572 42.1951 16.2521 41.948 16.4419C41.7046 16.6317 41.5828 16.8966 41.5828 17.2368C41.5828 17.5233 41.7153 17.7632 41.9803 17.9565C42.2452 18.1463 42.6821 18.3325 43.2908 18.5151C43.8995 18.6942 44.3883 18.9001 44.7571 19.1328C45.1259 19.362 45.3963 19.627 45.5682 19.9277C45.74 20.2249 45.826 20.5741 45.826 20.9751C45.826 21.6268 45.5753 22.146 45.074 22.5327C44.5763 22.9159 43.8995 23.1074 43.0438 23.1074C42.478 23.1074 41.957 23.0036 41.4808 22.7959C41.0081 22.5846 40.6393 22.2946 40.3743 21.9258C40.1129 21.557 39.9822 21.1273 39.9822 20.6367H41.3411C41.3411 21.0807 41.4879 21.4245 41.7815 21.668C42.0752 21.9115 42.4959 22.0332 43.0438 22.0332C43.5164 22.0332 43.8709 21.9383 44.1072 21.7485C44.3471 21.5552 44.4671 21.3009 44.4671 20.9858ZM53.7687 16.2754H51.3303V23H49.9821V16.2754H47.5651V15.1797H53.7687V16.2754ZM62.7417 23H61.4419V16.7212L59.5244 17.3765V16.2754L62.5752 15.1528H62.7417V23ZM71.8178 23H66.5595V22.103L69.1645 19.2617C69.5404 18.8428 69.8072 18.4937 69.9647 18.2144C70.1259 17.9315 70.2064 17.6486 70.2064 17.3657C70.2064 16.9933 70.1008 16.6925 69.8895 16.4634C69.6819 16.2342 69.4008 16.1196 69.0463 16.1196C68.6238 16.1196 68.2961 16.2485 68.0634 16.5063C67.8306 16.7642 67.7143 17.1169 67.7143 17.5645H66.4091C66.4091 17.0882 66.5165 16.6603 66.7313 16.2808C66.9498 15.8976 67.2595 15.6004 67.6605 15.3892C68.0652 15.1779 68.5307 15.0723 69.057 15.0723C69.8161 15.0723 70.4141 15.2638 70.851 15.647C71.2914 16.0265 71.5116 16.5529 71.5116 17.2261C71.5116 17.6164 71.4006 18.0264 71.1786 18.4561C70.9602 18.8822 70.6003 19.3674 70.099 19.9116L68.1869 21.958H71.8178V23ZM79.7219 15.1797L81.9777 21.1738L84.2282 15.1797H85.9846V23H84.6311V20.4219L84.7653 16.9736L82.4558 23H81.4836L79.1794 16.979L79.3137 20.4219V23H77.9602V15.1797H79.7219ZM94.9371 19.2939C94.9371 20.0602 94.8046 20.7334 94.5396 21.3135C94.2747 21.89 93.8951 22.334 93.401 22.6455C92.9104 22.9535 92.3447 23.1074 91.7037 23.1074C91.0699 23.1074 90.5042 22.9535 90.0064 22.6455C89.5123 22.334 89.1292 21.8918 88.857 21.3188C88.5885 20.7459 88.4524 20.0853 88.4488 19.3369V18.8965C88.4488 18.1338 88.5831 17.4606 88.8517 16.877C89.1238 16.2933 89.5051 15.8475 89.9957 15.5396C90.4898 15.228 91.0556 15.0723 91.693 15.0723C92.3303 15.0723 92.8943 15.2262 93.3849 15.5342C93.879 15.8385 94.2604 16.279 94.5289 16.8555C94.7975 17.4284 94.9335 18.0962 94.9371 18.8589V19.2939ZM93.5782 18.8857C93.5782 18.0192 93.4135 17.355 93.0841 16.8931C92.7582 16.4312 92.2945 16.2002 91.693 16.2002C91.1057 16.2002 90.6456 16.4312 90.3126 16.8931C89.9832 17.3514 89.8149 18.0013 89.8077 18.8428V19.2939C89.8077 20.1533 89.9742 20.8175 90.3072 21.2866C90.6438 21.7557 91.1093 21.9902 91.7037 21.9902C92.3053 21.9902 92.7672 21.7611 93.0895 21.3027C93.4153 20.8444 93.5782 20.1748 93.5782 19.2939V18.8857ZM103.594 23H102.235L98.7495 17.4517V23H97.3906V15.1797H98.7495L102.246 20.7495V15.1797H103.594V23ZM111.789 16.2754H109.351V23H108.003V16.2754H105.586V15.1797H111.789V16.2754ZM120.13 23H118.776V19.5249H115.28V23H113.921V15.1797H115.28V18.4346H118.776V15.1797H120.13V23ZM126.928 20.9858C126.928 20.6421 126.807 20.3771 126.563 20.1909C126.323 20.0047 125.888 19.8167 125.258 19.627C124.628 19.4372 124.127 19.2259 123.754 18.9932C123.042 18.5456 122.685 17.9619 122.685 17.2422C122.685 16.612 122.941 16.0928 123.453 15.6846C123.969 15.2764 124.637 15.0723 125.457 15.0723C126.001 15.0723 126.486 15.1725 126.912 15.373C127.338 15.5736 127.673 15.86 127.917 16.2324C128.16 16.6012 128.282 17.0112 128.282 17.4624H126.928C126.928 17.0542 126.8 16.7355 126.542 16.5063C126.287 16.2736 125.922 16.1572 125.446 16.1572C125.002 16.1572 124.656 16.2521 124.409 16.4419C124.166 16.6317 124.044 16.8966 124.044 17.2368C124.044 17.5233 124.177 17.7632 124.442 17.9565C124.707 18.1463 125.143 18.3325 125.752 18.5151C126.361 18.6942 126.85 18.9001 127.218 19.1328C127.587 19.362 127.858 19.627 128.029 19.9277C128.201 20.2249 128.287 20.5741 128.287 20.9751C128.287 21.6268 128.037 22.146 127.535 22.5327C127.038 22.9159 126.361 23.1074 125.505 23.1074C124.939 23.1074 124.418 23.0036 123.942 22.7959C123.469 22.5846 123.101 22.2946 122.836 21.9258C122.574 21.557 122.444 21.1273 122.444 20.6367H123.802C123.802 21.0807 123.949 21.4245 124.243 21.668C124.536 21.9115 124.957 22.0332 125.505 22.0332C125.978 22.0332 126.332 21.9383 126.569 21.7485C126.808 21.5552 126.928 21.3009 126.928 20.9858Z" fill="#9D9E9E"/>
@@ -58,6 +58,8 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 												</svg>
 											</span>
 										</div>
+									</div>
+
 										<svg width="603" height="344" viewBox="0 0 603 344" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<rect y="6.10352e-05" width="600" height="313" rx="8" fill="white"/>
 											<g filter="url(#filter0_d)">
@@ -124,11 +126,10 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 				<div class="portlet-boundary portlet-boundary_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_ portlet-barebone portlet-commerce-open-order-content portlet-draggable yui3-dd-drop yui3-dd-draggable" id="p_p_id_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_">
 					<span id="p_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet"></span>
 					<section class="portlet" id="portlet_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet">
-						<div class="portlet-title-default" style="user-select: none;"> Pending Orders </div>
 						<div class="portlet-content">
 							<div class=" portlet-content-container">
 								<div class="portlet-header">
-									<h2 class="portlet-title-text portlet-title-editable">Pending Orders</h2>
+									<h2 class="portlet-title-text">Pending Orders</h2>
 									<div class="portlet-header-tools"> </div>
 								</div>
 								<div class="portlet-body">
@@ -159,7 +160,7 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 														</tr>
 														<tr>
 															<td class="table-cell">
-																<h1 class="table-list-title"><span>Apr 4, 2019</span></h1>
+																<h1 class="table-list-title"><span>Apr 5, 2019</span></h1>
 															</td>
 															<td><span class="text-truncate">67696</span></td>
 															<td>
@@ -185,7 +186,7 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 												</table>
 											</div>
 											<div class="commerce-panel">
-												<div class="commerce-panel__title" style="text-align: center;color: #4886FF;">Show All</div>
+												<div class="commerce-panel__title" style="text-align: center;color: #4886FF;cursor:pointer;">Show All</div>
 											</div>
 										</div>
 									</div>
@@ -207,10 +208,10 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 								<div class="portlet-body">
 									<div class="text-right user-tool-asset-addon-entries"> </div>
 									<div class="clearfix journal-content-article" data-analytics-asset-id="83406" data-analytics-asset-title="History" data-analytics-asset-type="web-content">
-										<div class="commerce-panel" style="margin-bottom: 0;max-width: 600px;">
-											<div class="commerce-panel__title">
-												<span>Orders</span>
-												<span class="svg-container" style="margin-left: 60%;">
+										<div class="commerce-panel" style="margin-bottom: 0;max-width: 600px;display:flex;">
+											<div class="commerce-panel__title" style="justify-content: space-between;display: flex;width: 100%;">
+												<span style="align-self:center;">Orders</span>
+												<span class="svg-container" style="display:flex; align-self:flex-end;cursor: pointer;">
 													<svg width="151" height="40" viewBox="0 0 151 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 														<path fill-rule="evenodd" clip-rule="evenodd" d="M145.551 22.5943L142.216 19.2597C141.928 18.9715 141.928 18.5043 142.216 18.2161C142.504 17.928 142.972 17.928 143.26 18.2161L146.25 21.2064L149.24 18.2161C149.528 17.928 149.996 17.928 150.284 18.2161C150.572 18.5043 150.572 18.9715 150.284 19.2597L146.949 22.5943C146.76 22.7839 146.493 22.8487 146.25 22.7889C146.007 22.8487 145.74 22.7839 145.551 22.5943Z" fill="#9D9E9E"/>
 														<path d="M26.1538 21.915H29.7041V23H24.7949V15.1797H26.1538V21.915ZM36.331 21.1792H33.3017L32.6679 23H31.2553L34.2094 15.1797H35.4286L38.3881 23H36.9701L36.331 21.1792ZM33.683 20.0835H35.9496L34.8163 16.8394L33.683 20.0835ZM44.4671 20.9858C44.4671 20.6421 44.3453 20.3771 44.1019 20.1909C43.8619 20.0047 43.4269 19.8167 42.7967 19.627C42.1665 19.4372 41.6652 19.2259 41.2928 18.9932C40.5802 18.5456 40.2239 17.9619 40.2239 17.2422C40.2239 16.612 40.4799 16.0928 40.992 15.6846C41.5076 15.2764 42.1754 15.0723 42.9954 15.0723C43.5397 15.0723 44.0249 15.1725 44.451 15.373C44.8771 15.5736 45.2119 15.86 45.4554 16.2324C45.6989 16.6012 45.8206 17.0112 45.8206 17.4624H44.4671C44.4671 17.0542 44.3382 16.7355 44.0804 16.5063C43.8261 16.2736 43.4609 16.1572 42.9847 16.1572C42.5407 16.1572 42.1951 16.2521 41.948 16.4419C41.7046 16.6317 41.5828 16.8966 41.5828 17.2368C41.5828 17.5233 41.7153 17.7632 41.9803 17.9565C42.2452 18.1463 42.6821 18.3325 43.2908 18.5151C43.8995 18.6942 44.3883 18.9001 44.7571 19.1328C45.1259 19.362 45.3963 19.627 45.5682 19.9277C45.74 20.2249 45.826 20.5741 45.826 20.9751C45.826 21.6268 45.5753 22.146 45.074 22.5327C44.5763 22.9159 43.8995 23.1074 43.0438 23.1074C42.478 23.1074 41.957 23.0036 41.4808 22.7959C41.0081 22.5846 40.6393 22.2946 40.3743 21.9258C40.1129 21.557 39.9822 21.1273 39.9822 20.6367H41.3411C41.3411 21.0807 41.4879 21.4245 41.7815 21.668C42.0752 21.9115 42.4959 22.0332 43.0438 22.0332C43.5164 22.0332 43.8709 21.9383 44.1072 21.7485C44.3471 21.5552 44.4671 21.3009 44.4671 20.9858ZM53.7687 16.2754H51.3303V23H49.9821V16.2754H47.5651V15.1797H53.7687V16.2754ZM62.7417 23H61.4419V16.7212L59.5244 17.3765V16.2754L62.5752 15.1528H62.7417V23ZM71.8178 23H66.5595V22.103L69.1645 19.2617C69.5404 18.8428 69.8072 18.4937 69.9647 18.2144C70.1259 17.9315 70.2064 17.6486 70.2064 17.3657C70.2064 16.9933 70.1008 16.6925 69.8895 16.4634C69.6819 16.2342 69.4008 16.1196 69.0463 16.1196C68.6238 16.1196 68.2961 16.2485 68.0634 16.5063C67.8306 16.7642 67.7143 17.1169 67.7143 17.5645H66.4091C66.4091 17.0882 66.5165 16.6603 66.7313 16.2808C66.9498 15.8976 67.2595 15.6004 67.6605 15.3892C68.0652 15.1779 68.5307 15.0723 69.057 15.0723C69.8161 15.0723 70.4141 15.2638 70.851 15.647C71.2914 16.0265 71.5116 16.5529 71.5116 17.2261C71.5116 17.6164 71.4006 18.0264 71.1786 18.4561C70.9602 18.8822 70.6003 19.3674 70.099 19.9116L68.1869 21.958H71.8178V23ZM79.7219 15.1797L81.9777 21.1738L84.2282 15.1797H85.9846V23H84.6311V20.4219L84.7653 16.9736L82.4558 23H81.4836L79.1794 16.979L79.3137 20.4219V23H77.9602V15.1797H79.7219ZM94.9371 19.2939C94.9371 20.0602 94.8046 20.7334 94.5396 21.3135C94.2747 21.89 93.8951 22.334 93.401 22.6455C92.9104 22.9535 92.3447 23.1074 91.7037 23.1074C91.0699 23.1074 90.5042 22.9535 90.0064 22.6455C89.5123 22.334 89.1292 21.8918 88.857 21.3188C88.5885 20.7459 88.4524 20.0853 88.4488 19.3369V18.8965C88.4488 18.1338 88.5831 17.4606 88.8517 16.877C89.1238 16.2933 89.5051 15.8475 89.9957 15.5396C90.4898 15.228 91.0556 15.0723 91.693 15.0723C92.3303 15.0723 92.8943 15.2262 93.3849 15.5342C93.879 15.8385 94.2604 16.279 94.5289 16.8555C94.7975 17.4284 94.9335 18.0962 94.9371 18.8589V19.2939ZM93.5782 18.8857C93.5782 18.0192 93.4135 17.355 93.0841 16.8931C92.7582 16.4312 92.2945 16.2002 91.693 16.2002C91.1057 16.2002 90.6456 16.4312 90.3126 16.8931C89.9832 17.3514 89.8149 18.0013 89.8077 18.8428V19.2939C89.8077 20.1533 89.9742 20.8175 90.3072 21.2866C90.6438 21.7557 91.1093 21.9902 91.7037 21.9902C92.3053 21.9902 92.7672 21.7611 93.0895 21.3027C93.4153 20.8444 93.5782 20.1748 93.5782 19.2939V18.8857ZM103.594 23H102.235L98.7495 17.4517V23H97.3906V15.1797H98.7495L102.246 20.7495V15.1797H103.594V23ZM111.789 16.2754H109.351V23H108.003V16.2754H105.586V15.1797H111.789V16.2754ZM120.13 23H118.776V19.5249H115.28V23H113.921V15.1797H115.28V18.4346H118.776V15.1797H120.13V23ZM126.928 20.9858C126.928 20.6421 126.807 20.3771 126.563 20.1909C126.323 20.0047 125.888 19.8167 125.258 19.627C124.628 19.4372 124.127 19.2259 123.754 18.9932C123.042 18.5456 122.685 17.9619 122.685 17.2422C122.685 16.612 122.941 16.0928 123.453 15.6846C123.969 15.2764 124.637 15.0723 125.457 15.0723C126.001 15.0723 126.486 15.1725 126.912 15.373C127.338 15.5736 127.673 15.86 127.917 16.2324C128.16 16.6012 128.282 17.0112 128.282 17.4624H126.928C126.928 17.0542 126.8 16.7355 126.542 16.5063C126.287 16.2736 125.922 16.1572 125.446 16.1572C125.002 16.1572 124.656 16.2521 124.409 16.4419C124.166 16.6317 124.044 16.8966 124.044 17.2368C124.044 17.5233 124.177 17.7632 124.442 17.9565C124.707 18.1463 125.143 18.3325 125.752 18.5151C126.361 18.6942 126.85 18.9001 127.218 19.1328C127.587 19.362 127.858 19.627 128.029 19.9277C128.201 20.2249 128.287 20.5741 128.287 20.9751C128.287 21.6268 128.037 22.146 127.535 22.5327C127.038 22.9159 126.361 23.1074 125.505 23.1074C124.939 23.1074 124.418 23.0036 123.942 22.7959C123.469 22.5846 123.101 22.2946 122.836 21.9258C122.574 21.557 122.444 21.1273 122.444 20.6367H123.802C123.802 21.0807 123.949 21.4245 124.243 21.668C124.536 21.9115 124.957 22.0332 125.505 22.0332C125.978 22.0332 126.332 21.9383 126.569 21.7485C126.808 21.5552 126.928 21.3009 126.928 20.9858Z" fill="#9D9E9E"/>
@@ -223,8 +224,12 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 
 										<%--chart js--%>
 
-										<div class="chart-container" style="max-width: 600px;background: white;border-radius: 8px;margin-bottom: 5px;padding: 10px;">
+										<div class="chart-container" style="max-width: 600px;background: white;border-radius: 8px;margin-bottom: 5px;padding: 10px;max-height: 320px;display: flex;flex-direction: column;">
+											<span style="display:flex;align-self:flex-end;font-size: 10px;font-weight: 500;letter-spacing: 1.2px;line-height: 16px;margin-right: 1.5%;">FORECAST</span>
+
 											<div id="chart" />
+
+											<div id="chart-loading" class="loading-animation" />
 										</div>
 
 									</div>
@@ -237,7 +242,6 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 				<div class="portlet-boundary portlet-boundary_com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_ portlet-barebone portlet-commerce-order-content portlet-draggable yui3-dd-drop" id="p_p_id_com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_">
 					<span id="p_com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet"></span>
 					<section class="portlet" id="portlet_com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet">
-						<div class="portlet-title-default" style="user-select: none;"> Commerce Order Content </div>
 						<div class="portlet-content">
 							<div class=" portlet-content-container">
 								<div class="portlet-header">
@@ -298,7 +302,7 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 												</table>
 											</div>
 											<div class="commerce-panel">
-												<div class="commerce-panel__title" style="text-align: center;color: #4886FF;">Show All</div>
+												<div class="commerce-panel__title" style="text-align: center;color: #4886FF;cursor:pointer;">Show All</div>
 											</div>
 										</div>
 									</div>
@@ -314,103 +318,377 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 <form action="#" id="hrefFm" method="post" name="hrefFm"><span></span></form>
 </div>
 
+<!-- Step 1) Load js -->
 
-<!-- Step 1) Load D3.js -->
-
-
-<script defer src="https://d3js.org/d3.v5.min.js"></script>
-
-<!-- Step 2) Load billboard.js with style -->
-<script defer src="https://cdn.jsdelivr.net/npm/billboard.js@1.0.0/dist/billboard.min.js"></script>
-
-<!-- Load with base style -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js@1.0.0/dist/billboard.css">
+<liferay-util:html-top>
+	<script src="<%= PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/d3.min.js", "js_fast_load=0") %>" type="text/javascript"></script>
+	<script defer src="<%= PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/billboard.min.js", "js_fast_load=0") %>" type="text/javascript"></script>
+</liferay-util:html-top>
 
 <script>
 	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+	var chart = null;
+
 	window.addEventListener(
 		'load', function() {
-			if (window.bb) {
-				var chart = window.bb.generate({
-					bindto: "#chart",
-					data: {
-						x: "date",
-						columns: [
-							["date", "2018-04-01", "2018-04-15", "2018-05-01", "2018-05-15", "2018-06-01","2018-06-15", "2018-07-01", "2018-08-01", "2018-09-01","2018-10-01","2018-11-01","2018-12-01","2019-01-01", "2019-02-01","2019-03-01","2019-04-01", "2019-05-01", "2019-06-01"],
-							["value", 502743, 515003, 425672, 445672, 656720, 678720, 544672, 512988, 678212, 379672, 477672, 648678, 314277, 364188, 693677, 473600, 674427, 388124],
+		initChart();
+	}, false);
+
+	function initChart() {
+		if (window.bb && window.d3 && !chart) {
+			var loadingDiv = document.getElementById("chart-loading");
+
+			loadingDiv.hidden = true;
+
+			chart = window.bb.generate({
+				bindto: "#chart",
+				data: {
+					x: "dates",
+					columns: [
+						["dates",
+						 "2018-04-01",
+						 "2018-04-15",
+						 "2018-05-01",
+						 "2018-05-15",
+						 "2018-06-01",
+						 "2018-06-15",
+						 "2018-07-01",
+						 "2018-07-15",
+						 "2018-08-01",
+						 "2018-08-15",
+						 "2018-09-01",
+						 "2018-09-15",
+						 "2018-10-01",
+						 "2018-10-15",
+						 "2018-11-01",
+						 "2018-11-15",
+						 "2018-12-01",
+						 "2018-12-15",
+						 "2019-01-01",
+						 "2019-01-15",
+						 "2019-02-01",
+						 "2019-02-15",
+						 "2019-03-01",
+						 "2019-03-15",
+						 "2019-04-01",
+						 "2019-04-15",
+						 "2019-05-01",
+						 "2019-05-15",
+						 "2019-06-01",
+						 "2019-06-15"
+						],
+						["Totals",
+							[502743, 502743, 502743],
+							[455672, 455672, 455672],
+							[504433, 504433, 504433],
+							[582302, 582302, 582302],
+							[573921, 573921, 573921],
+							[544672, 544672, 544672],
+							[530295, 530295, 530295],
+							[502039, 502039, 502039],
+							[452020, 452020, 452020],
+							[473020, 473020, 473020],
+							[492911, 492911, 492911],
+							[432059, 432059, 432059],
+							[460930, 460930, 460930],
+							[420404, 420404, 420404],
+							[432028, 432028, 432028],
+							[462333, 462333, 462333],
+							[535042, 535042, 535042],
+							[528543, 528543, 528543],
+							[513020, 513020, 513020],
+							[470202, 470202, 470202],
+							[540193, 540193, 540193],
+							[542943, 542943, 542943],
+							[570002, 570002, 570002],
+							[573030, 573030, 573030],
+							[540202, 540202, 540202],
+							[530292, 530292, 530292],
+							[591392, 560392, 520392],
+							[594030, 571030, 543030],
+							[596405, 573405, 557340],
+							[579041, 552041, 523041]
+						]
+					],
+					types: {
+						Totals: "area-line-range"
+					}
+				},
+				axis: {
+					x: {
+						type: "timeseries",
+						tick: {
+							format: function(date) {
+								var jsDate = new Date(date);
+
+								var monthNumber = jsDate.getMonth();
+
+								return months[monthNumber];
+							}
+						},
+						values: [
+							"2018-04-30",
+							"2018-05-30",
+							"2018-06-30",
+							"2018-07-30",
+							"2018-08-30",
+							"2018-09-30",
+							"2018-10-30",
+							"2018-11-30",
+							"2018-12-30",
+							"2019-01-30",
+							"2019-02-30",
+							"2019-03-30",
+							"2019-04-30",
+							"2019-05-30",
+							"2019-06-30"
 						]
 					},
-					type: "spline",
-					axis: {
-						x: {
-							type: "timeseries",
-							tick: {
-								format: function(date) {
-									var jsDate = new Date(date);
+					y: {
+						count: 5,
+						tick: {
+							format: function(value) {
+								value = (value-(value%1000))/1000;
 
-									var monthNumber = jsDate.getMonth();
-
-									return months[monthNumber];
-								}
+								return value + "k";
 							},
 							values: [
-								"2018-04-01",
-								"2018-05-01",
-								"2018-06-01",
-								"2018-07-01",
-								"2018-08-01",
-								"2018-09-01",
-								"2018-10-01",
-								"2018-11-01",
-								"2018-12-01",
-								"2019-01-01",
-								"2019-02-01",
-								"2019-03-01",
-								"2019-04-01",
-								"2019-05-01",
-								"2019-06-01"
+								100000,
+								200000,
+								300000,
+								400000,
+								500000,
+								600000,
+								700000
 							]
-						},
-						y: {
-							tick: {
-								format: function(value) {
-									value = (value-(value%1000))/1000;
-
-									return value + "k";
-								},
-								values: [
-									300000,
-									400000,
-									500000,
-									600000,
-									700000
-								]
-							}
 						}
-					},
-					grid: {
-						x: {
-							show: false
-						},
-						y: {
-							show: true
-						}
-					},
-					legend: {
+					}
+				},
+				grid: {
+					x: {
 						show: false
 					},
-					regions: [
-						{
-							class: "region-forcast",
-							start: "2019-04-01",
-							end: "2019-06-30"
-						}
-					]
-				});
+					y: {
+						show: true
+					}
+				},
+				legend: {
+					show: false
+				},
+				regions: [
+					{
+						start: "2019-04-23",
+						end: "2019-06-30"
+					}
+				]
+			});
+
+			chart.resize({width: 575, height: 275});
+
+		}
+		else {
+			console.warn('bb was not ready');
+
+			if (!chart) {
+				setTimeout(initChart, 1000);
 			}
-			else {
-				console.warn('bb was not ready')
-			}
-		}, false);
+		}
+	}
 </script>
+
+<style>
+	/*!
+ * Copyright (c) 2017 NAVER Corp.
+ * billboard.js project is licensed under the MIT license
+ *
+ * billboard.js, JavaScript chart library
+ * http://naver.github.io/billboard.js/
+ *
+ * @version 1.0.0
+ */
+	/*-- Chart --*/
+	.bb svg {
+		font: 10px sans-serif;
+		-webkit-tap-highlight-color: transparent; }
+
+	.bb path, .bb line {
+		fill: none;
+		stroke: #000; }
+
+	.bb text {
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		user-select: none; }
+
+	.bb-legend-item-tile,
+	.bb-xgrid-focus,
+	.bb-ygrid,
+	.bb-event-rect,
+	.bb-bars path {
+		shape-rendering: crispEdges; }
+
+	.bb-chart-arc path {
+		stroke: #fff; }
+
+	.bb-chart-arc text {
+		fill: #fff;
+		font-size: 13px; }
+
+	/*-- Axis --*/
+	/*-- Grid --*/
+	.bb-grid line {
+		stroke: #aaa; }
+
+	.bb-grid text {
+		fill: #aaa; }
+
+	.bb-xgrid, .bb-ygrid {
+		stroke-dasharray: 3 3; }
+
+	/*-- Text on Chart --*/
+	.bb-text.bb-empty {
+		fill: #808080;
+		font-size: 2em; }
+
+	/*-- Line --*/
+	.bb-line {
+		stroke-width: 1px; }
+
+	/*-- Point --*/
+	.bb-circle._expanded_ {
+		stroke-width: 1px;
+		stroke: white; }
+
+	.bb-selected-circle {
+		fill: white;
+		stroke-width: 2px; }
+
+	/*-- Bar --*/
+	.bb-bar {
+		stroke-width: 0; }
+	.bb-bar._expanded_ {
+		fill-opacity: 0.75; }
+
+	/*-- Focus --*/
+	.bb-target.bb-focused {
+		opacity: 1; }
+
+	.bb-target.bb-focused path.bb-line, .bb-target.bb-focused path.bb-step {
+		stroke-width: 2px; }
+
+	.bb-target.bb-defocused {
+		opacity: 0.3 !important; }
+
+	/*-- Region --*/
+	.bb-region {
+		fill: steelblue;
+		fill-opacity: .1; }
+
+	/*-- Brush --*/
+	.bb-brush .extent {
+		fill-opacity: .1; }
+
+	/*-- Select - Drag --*/
+	/*-- Legend --*/
+	.bb-legend-item {
+		font-size: 12px; }
+
+	.bb-legend-item-hidden {
+		opacity: 0.15; }
+
+	.bb-legend-background {
+		opacity: 0.75;
+		fill: white;
+		stroke: lightgray;
+		stroke-width: 1; }
+
+	/*-- Title --*/
+	.bb-title {
+		font: 14px sans-serif; }
+
+	/*-- Tooltip --*/
+	.bb-tooltip-container {
+		z-index: 10; }
+
+	.bb-tooltip {
+		border-collapse: collapse;
+		border-spacing: 0;
+		background-color: #fff;
+		empty-cells: show;
+		opacity: 0.9;
+		-webkit-box-shadow: 7px 7px 12px -9px #777777;
+		-moz-box-shadow: 7px 7px 12px -9px #777777;
+		box-shadow: 7px 7px 12px -9px #777777; }
+	.bb-tooltip tr {
+		border: 1px solid #CCC; }
+	.bb-tooltip th {
+		background-color: #aaa;
+		font-size: 14px;
+		padding: 2px 5px;
+		text-align: left;
+		color: #FFF; }
+	.bb-tooltip td {
+		font-size: 13px;
+		padding: 3px 6px;
+		background-color: #fff;
+		border-left: 1px dotted #999; }
+	.bb-tooltip td > span {
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		margin-right: 6px; }
+	.bb-tooltip td.value {
+		text-align: right; }
+
+	/*-- Area --*/
+	.bb-area {
+		stroke-width: 0;
+		opacity: 0.2; }
+
+	/*-- Arc --*/
+	.bb-chart-arcs-title {
+		dominant-baseline: middle;
+		font-size: 1.3em; }
+
+	.bb-chart-arcs .bb-chart-arcs-background {
+		fill: #e0e0e0;
+		stroke: none; }
+
+	.bb-chart-arcs .bb-chart-arcs-gauge-unit {
+		fill: #000;
+		font-size: 16px; }
+
+	.bb-chart-arcs .bb-chart-arcs-gauge-max {
+		fill: #777; }
+
+	.bb-chart-arcs .bb-chart-arcs-gauge-min {
+		fill: #777; }
+
+	.bb-chart-arc .bb-gauge-value {
+		fill: #000; }
+
+	.bb-axis-y text, .bb-axis-y2 text {
+		fill: #737373;
+	}
+
+	.bb path, .bb line {
+		fill: none;
+		stroke: #c4c4c4;
+	}
+
+	.bb text, .bb .bb-button {
+		user-select: none;
+		fill: #555;
+		font-size: 11px;
+	}
+
+	.tick text {
+		font-size: 10px;
+		font-weight: 500;
+		letter-spacing: 1.2px;
+		line-height: 16px;
+	}
+
+	/*# sourceMappingURL=billboard.css.map*/
+</style>

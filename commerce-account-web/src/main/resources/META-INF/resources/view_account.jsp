@@ -50,14 +50,18 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");
 
 		<table class="details-header__info-wrapper" style="">
 			<tbody>
-			<tr style="">
-				<td class="details-header__label" style="text-align: right;padding-right: 15px;"><liferay-ui:message key="address" /></td>
-				<td class="details-header__value">
-					<%= HtmlUtil.escape(commerceAddress.getStreet1()) %>
-					<br />
-					<%= HtmlUtil.escape(commerceAddress.getCity() + StringPool.SPACE + commerceAddress.getZip()) %>
-				</td>
-			</tr>
+
+			<c:if test="<%= commerceAddress != null %>">
+				<tr style="">
+
+					<td class="details-header__label" style="text-align: right;padding-right: 15px;"><liferay-ui:message key="address" /></td>
+					<td class="details-header__value">
+						<%= HtmlUtil.escape(commerceAddress.getStreet1()) %>
+						<br />
+						<%= HtmlUtil.escape(commerceAddress.getCity() + StringPool.SPACE + commerceAddress.getZip()) %>
+					</td>
+				</tr>
+			</c:if>
 
 			<tr>
 				<td class="details-header__label" style="text-align: right;padding-right: 15px;"><liferay-ui:message key="vat-number" /></td>
@@ -144,7 +148,7 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");
 			</a>
 			<%--analytics cloud svg--%>
 
-			<a href="." style="text-decoration:none;">
+			<a href="http://analytics:8080" style="text-decoration:none;">
 				<svg width="201" height="189" viewBox="0 0 201 189" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<g filter="url(#filter0_d)">
 						<rect x="33" width="135" height="123" rx="8" fill="#26262D"/>
