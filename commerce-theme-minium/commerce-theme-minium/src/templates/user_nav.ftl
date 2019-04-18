@@ -9,7 +9,7 @@
 				<div class="main-link__label">${wish_lists_text}</div>
 			</a>
 
-			<a class="main-link main-link--sub" href="${notification_url}">
+			<a class="main-link main-link--sub" style="cursor:pointer" onclick="openInModal('${notification_url}')">
 				<div class="main-link__label">
 					${notifications_text}
 					<div class="minium-notification-badge">${notification_count}</div>

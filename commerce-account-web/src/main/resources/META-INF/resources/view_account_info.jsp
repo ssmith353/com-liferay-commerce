@@ -330,10 +330,7 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 
 	var chart = null;
 
-	window.addEventListener(
-		'load', function() {
-		initChart();
-	}, false);
+	initChart();
 
 	function initChart() {
 		if (window.bb && window.d3 && !chart) {
