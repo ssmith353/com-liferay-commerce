@@ -102,3 +102,25 @@ Liferay.on(
 		}, false);
 	}
 );
+
+function openInModal(url) {
+	console.warn(url)
+
+	AUI().use('liferay-util-window', function(A) {
+		console.warn(url)
+
+		var popUp = Liferay.Util.Window.getWindow({
+			dialog: {
+				centered: true,
+				constrain2view: true,
+				resizable: false
+			}
+		}).plug(A.Plugin.DialogIframe, {
+			autoLoad: true,
+			iframeCssClass: 'dialog-iframe notifications-custom-iframe',
+			uri: url
+		}).render();
+
+		popUp.show();
+	});
+}

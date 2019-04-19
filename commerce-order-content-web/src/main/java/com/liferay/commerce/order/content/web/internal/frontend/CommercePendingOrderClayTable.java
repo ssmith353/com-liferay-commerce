@@ -125,17 +125,17 @@ public class CommercePendingOrderClayTable
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		clayTableSchemaBuilder.addField("createDate", "create-date");
+		clayTableSchemaBuilder.addField("createDate", "Create Date");
 
-		clayTableSchemaBuilder.addField("orderId", "order-id");
+		clayTableSchemaBuilder.addField("orderId", "Order ID");
 
-		clayTableSchemaBuilder.addField("accountName", "account");
+		clayTableSchemaBuilder.addField("accountName", "Account");
 
-		clayTableSchemaBuilder.addField("author", "author");
+		clayTableSchemaBuilder.addField("author", "Author");
 
-		clayTableSchemaBuilder.addField("status", "status");
+		clayTableSchemaBuilder.addField("status", "Status");
 
-		clayTableSchemaBuilder.addField("amount", "amount");
+		clayTableSchemaBuilder.addField("amount", "Amount");
 
 		return clayTableSchemaBuilder.build();
 	}

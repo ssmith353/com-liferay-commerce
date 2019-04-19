@@ -125,17 +125,17 @@ public class CommercePlacedOrderClayTable
 		ClayTableSchemaBuilder clayTableSchemaBuilder =
 			_clayTableSchemaBuilderFactory.clayTableSchemaBuilder();
 
-		clayTableSchemaBuilder.addField("title", "order-id");
+		clayTableSchemaBuilder.addField("title", "Order ID");
 
-		clayTableSchemaBuilder.addField("createDate", "create-date");
+		clayTableSchemaBuilder.addField("createDate", "Create Date");
 
-		clayTableSchemaBuilder.addField("accountName", "account");
+		clayTableSchemaBuilder.addField("accountName", "Account");
 
-		clayTableSchemaBuilder.addField("author", "author");
+		clayTableSchemaBuilder.addField("author", "Author");
 
-		clayTableSchemaBuilder.addField("orderStatus", "status");
+		clayTableSchemaBuilder.addField("orderStatus", "Status");
 
-		clayTableSchemaBuilder.addField("amount", "amount");
+		clayTableSchemaBuilder.addField("amount", "Amount");
 
 		return clayTableSchemaBuilder.build();
 	}
