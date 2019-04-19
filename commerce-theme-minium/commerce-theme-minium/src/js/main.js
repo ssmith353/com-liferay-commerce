@@ -117,27 +117,11 @@ function openInModal(url) {
 			}
 		}).plug(A.Plugin.DialogIframe, {
 			autoLoad: true,
-			iframeCssClass: 'dialog-iframe',
+			iframeCssClass: 'dialog-iframe notifications-custom-iframe',
 			uri: url
 		}).render();
 
 		popUp.show();
 	});
-
-
-
-
-
-	// Liferay.Portlet.openWindow(
-	// 	{
-	// 		bodyCssClass: 'dialog-with-footer',
-	// 		destroyOnHide: true,
-	// 		namespace: '_com_liferay_notifications_web_portlet_NotificationsPortlet',
-	// 		portlet: '#com_liferay_notifications_web_portlet_NotificationsPortlet',
-	// 		portletId: 'com_liferay_notifications_web_portlet_NotificationsPortlet',
-	// 		title: '\u004e\u006f\u0074\u0069\u0066\u0069\u0063\u0061\u0074\u0069\u006f\u006e\u0073',
-	// 		uri: 'http://minium.demo:8080/group/control_panel/manage?p_p_id=com_liferay_notifications_web_portlet_NotificationsPortlet'
-	// 	}
-	// );
 }
 
