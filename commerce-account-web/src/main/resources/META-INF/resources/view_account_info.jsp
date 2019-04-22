@@ -20,19 +20,6 @@
 CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
 
-<%--<div class="container-fluid-1280">--%>
-	<%--<div class="row">--%>
-		<%--<div class="col">--%>
-			<%--<div class="commerce-panel">--%>
-				<%--<div class="commerce-panel__title">Key Performance Indicators</div>--%>
-				<%--<div class="commerce-panel__content">--%>
-					<%--Image--%>
-				<%--</div>--%>
-			<%--</div>--%>
-		<%--</div>--%>
-	<%--</div>--%>
-<%--</div>--%>
-
 <div class="minium-content-new">
 <div class="columns-2" id="main-content" role="main">
 <div class="portlet-layout row">
@@ -42,12 +29,12 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 				<span id="p_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_raNEeDyuXeS9"></span>
 				<section class="portlet" id="portlet_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE_raNEeDyuXeS9">
 					<%--Key performance indicators svg--%>
-					<div class="portlet-content">
+					<div class="portlet-content" style="max-width: 600px;">
 						<div class=" portlet-content-container">
 							<div class="portlet-body">
 								<div class="text-right user-tool-asset-addon-entries"> </div>
 								<div class="clearfix journal-content-article" data-analytics-asset-id="83331" data-analytics-asset-title="Orders" data-analytics-asset-type="web-content">
-									<div class="commerce-panel" style="margin-bottom: 0;max-width: 600px;display:flex;">
+									<div class="commerce-panel" style="margin-bottom: 0;display:flex;">
 										<div class="commerce-panel__title" style="justify-content: space-between;display: flex; width:100%;">
 											<span style="align-self: center;">Key Performance Indicators</span>
 											<span class="svg-container" style="display:flex; align-self:flex-end;cursor: pointer;">
@@ -127,7 +114,7 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 				<div class="portlet-boundary portlet-boundary_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_ portlet-barebone portlet-commerce-open-order-content portlet-draggable yui3-dd-drop yui3-dd-draggable" id="p_p_id_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet_">
 					<span id="p_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet"></span>
 					<section class="portlet" id="portlet_com_liferay_commerce_order_content_web_internal_portlet_CommerceOpenOrderContentPortlet">
-						<div class="portlet-content">
+						<div class="portlet-content" style="max-width: 600px;">
 							<div class=" portlet-content-container">
 								<div class="portlet-header">
 									<h2 class="portlet-title-text">Pending Orders</h2>
@@ -243,7 +230,7 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 				<div class="portlet-boundary portlet-boundary_com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_ portlet-barebone portlet-commerce-order-content portlet-draggable yui3-dd-drop" id="p_p_id_com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet_">
 					<span id="p_com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet"></span>
 					<section class="portlet" id="portlet_com_liferay_commerce_order_content_web_internal_portlet_CommerceOrderContentPortlet">
-						<div class="portlet-content">
+						<div class="portlet-content" style="max-width: 600px;">
 							<div class=" portlet-content-container">
 								<div class="portlet-header">
 									<h2 class="portlet-title-text">Placed Orders</h2>
@@ -326,7 +313,7 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 	<script defer src="<%= PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/billboard.min.js", "js_fast_load=0") %>" type="text/javascript"></script>
 </liferay-util:html-top>
 
-<script>
+<aui:script>
 	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 	var chart = null;
@@ -493,7 +480,7 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 			}
 		}
 	}
-</script>
+</aui:script>
 
 <style>
 	/*!
