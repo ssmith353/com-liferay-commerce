@@ -11,7 +11,7 @@ html {
 #minium {
 	transition: padding ease 500ms;
 
-	body.signed-in & .minium-frame__topbar {
+	body.show-dockbar & .minium-frame__topbar {
 		top: $liferay-topbar-size;
 
 		@media screen and (max-width: 767px) {
@@ -19,7 +19,7 @@ html {
 		}
 	}
 
-	body.signed-in & .minium-frame__toolbar {
+	body.show-dockbar & .minium-frame__toolbar {
 		margin-top: $liferay-topbar-size;
 
 		@media screen and (max-width: 767px) {
@@ -27,8 +27,10 @@ html {
 		}
 	}
 
-	body.signed-in & .minium-frame__sidebar {
-		top: $liferay-topbar-size;
+
+	@media screen and (hover: hover) {
+		body.show-dockbar & .minium-frame__sidebar {
+			top: $liferay-topbar-size;
 
 		@media screen and (max-width: 767px) {
 			top: $liferay-topbar-size-small;
@@ -38,6 +40,32 @@ html {
 	@media screen and (hover: none) {
 		body.signed-in & .minium-frame__sidebar {
 			top: auto;
+		}
+	}
+
+	body.hide-dockbar & .minium-frame__topbar {
+		top: 0;
+
+		@media screen and (max-width: 767px) {
+			top: 0;
+		}
+	}
+
+	body.hide-dockbar & .minium-frame__toolbar {
+		margin-top: 0;
+
+		@media screen and (max-width: 767px) {
+			margin-top: 0;
+		}
+	}
+
+	@media screen and (hover: hover) {
+		body.hide-dockbar & .minium-frame__sidebar {
+			top: 0;
+
+			@media screen and (max-width: 767px) {
+				top: 0;
+			}
 		}
 	}
 
