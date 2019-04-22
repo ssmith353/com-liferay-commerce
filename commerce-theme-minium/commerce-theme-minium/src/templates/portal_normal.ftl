@@ -7,17 +7,36 @@
 	<meta content="initial-scale=1.0, width=device-width" name="viewport" />
 
 	<script type="text/javascript" src="${javascript_folder}/intersection-observer.js"></script>
+
+	<script>
+		function extendTheSession() {
+			if (window.Liferay && window.Liferay.Session && window.Liferay.Session.extend) {
+				window.Liferay.Session.extend();
+
+				console.log("we extended the session");
+			}
+		}
+	</script>
+
+	<script>
+		setInterval(() => {extendTheSession()}, 5000);
+	</script>
 	<@liferay_util["include"] page=top_head_include />
 </head>
 
-<body class="${css_class}">
-	<div class="liferay-top">
-		<@liferay_ui["quick-access"] contentId="#main-content" />
-		<@liferay_util["include"] page=body_top_include />
-		<@liferay.control_menu />
-	</div>
+<body class="${css_class} ${wrapper_class_name}">
+	<#if show_dockbar>
+		<div class="liferay-top">
+			<@liferay_ui["quick-access"] contentId="#main-content" />
 
-	<main class="minium minium-frame" id="minium">
+			<@liferay_util["include"] page=body_top_include />
+
+			<@liferay.control_menu />
+		</div>
+	</#if>
+
+
+		<main class="minium minium-frame" id="minium">
 		<div class="minium-frame__sidebar">
 			<#include "${full_templates_path}/sidebar.ftl" />
 		</div>
