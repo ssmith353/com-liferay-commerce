@@ -122,6 +122,7 @@ html {
 	.bgd-page-blogs .columns-1 .portlet-layout {
 		max-width: 732px;
 	}
+
 	.columns-1 .portlet-layout {
 		margin-left: auto;
 		margin-right: auto;
@@ -801,25 +802,26 @@ html {
 		}
 
 		.navbar {
-			display:none;
+			display: none;
 		}
 
 		#notificationsManagementToolbar {
-			display:none;
+			display: none;
 		}
 	}
 
 
 	.notifications-custom-iframe {
 		#_com_liferay_notifications_web_portlet_NotificationsPortlet_ControlMenu {
-			display:none;
+			display: none;
 		}
 
 		.navbar {
-			display:none;
+			display: none;
 		}
 
 		#notificationsManagementToolbar {
-			display:none;
+			display: none;
 		}
 	}
+}
