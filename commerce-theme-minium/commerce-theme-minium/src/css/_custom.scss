@@ -32,72 +32,73 @@ html {
 		body.show-dockbar & .minium-frame__sidebar {
 			top: $liferay-topbar-size;
 
-		@media screen and (max-width: 767px) {
-			top: $liferay-topbar-size-small;
+			@media screen and (max-width: 767px) {
+				top: $liferay-topbar-size-small;
+			}
 		}
-	}
 
-	@media screen and (hover: none) {
-		body.signed-in & .minium-frame__sidebar {
-			top: auto;
+		@media screen and (hover: none) {
+			body.signed-in & .minium-frame__sidebar {
+				top: auto;
+			}
 		}
-	}
 
-	body.hide-dockbar & .minium-frame__topbar {
-		top: 0;
-
-		@media screen and (max-width: 767px) {
-			top: 0;
-		}
-	}
-
-	body.hide-dockbar & .minium-frame__toolbar {
-		margin-top: 0;
-
-		@media screen and (max-width: 767px) {
-			margin-top: 0;
-		}
-	}
-
-	@media screen and (hover: hover) {
-		body.hide-dockbar & .minium-frame__sidebar {
+		body.hide-dockbar & .minium-frame__topbar {
 			top: 0;
 
 			@media screen and (max-width: 767px) {
 				top: 0;
 			}
 		}
-	}
 
-	body.open & .minium-frame__topbar,
-	body.open & .minium-frame__toolbar,
-	body.open & .minium-frame__sidebar {
-		left: 320px;
-	}
+		body.hide-dockbar & .minium-frame__toolbar {
+			margin-top: 0;
 
-	body.open-admin-panel & .minium-frame__topbar,
-	body.open-admin-panel & .minium-frame__toolbar,
-	body.open-admin-panel & .minium-frame__sidebar {
-		right: 320px;
-	}
+			@media screen and (max-width: 767px) {
+				margin-top: 0;
+			}
+		}
 
-	body.open & .minium-frame__content {
-		margin-left: 320px;
-	}
+		@media screen and (hover: hover) {
+			body.hide-dockbar & .minium-frame__sidebar {
+				top: 0;
 
-	input[type="checkbox"] {
-		margin-right: 8px;
-	}
+				@media screen and (max-width: 767px) {
+					top: 0;
+				}
+			}
+		}
 
-	.container-fluid-max-xl {
-		max-width: initial;
-	}
+		body.open & .minium-frame__topbar,
+		body.open & .minium-frame__toolbar,
+		body.open & .minium-frame__sidebar {
+			left: 320px;
+		}
 
-	.page-header {
-		border-radius: 8px;
-	}
+		body.open-admin-panel & .minium-frame__topbar,
+		body.open-admin-panel & .minium-frame__toolbar,
+		body.open-admin-panel & .minium-frame__sidebar {
+			right: 320px;
+		}
 
-	.form-group-inline {
-		margin-bottom: 0;
+		body.open & .minium-frame__content {
+			margin-left: 320px;
+		}
+
+		input[type="checkbox"] {
+			margin-right: 8px;
+		}
+
+		.container-fluid-max-xl {
+			max-width: initial;
+		}
+
+		.page-header {
+			border-radius: 8px;
+		}
+
+		.form-group-inline {
+			margin-bottom: 0;
+		}
 	}
 }
