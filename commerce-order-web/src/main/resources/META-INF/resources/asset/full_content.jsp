@@ -17,55 +17,69 @@
 <%@ include file="/asset/init.jsp" %>
 
 <%
-CommerceOrder commerceOrder = (CommerceOrder)request.getAttribute(CommerceOrderConstants.COMMERCE_ORDER);
+	CommerceOrder commerceOrderRender = (CommerceOrder)request.getAttribute("COMMERCE_ORDER");
+	String summary = (String)request.getAttribute("SUMMARY");
+	String address = (String)request.getAttribute("ADDRESS");
 %>
 
 <div class="container-fluid-1280">
-	<h4><liferay-ui:message key="order-details" /></h4>
+	<div style="margin-left: 10px;margin-top: 20px;margin-bottom:10px;">
+		<h4>Contact: </h4>
+		<div style="margin-left: 20px;"> <%= summary %> </div>
+		<br>
+		<h4>Shipping: </h4>
+		<div style="margin-left: 20px;"> <%= address %> </div>
+	</div>
 
-	<liferay-ui:search-container
-		id="commerceOrderItems"
-	>
-		<liferay-ui:search-container-results
-			results="<%= commerceOrder.getCommerceOrderItems() %>"
-			resultsVar="commerceOrderItems"
-		/>
+	<div style="margin-left: 10px;margin-top: 20px;">
+		<h4>Order Details: </h4>
 
-		<liferay-ui:search-container-row
-			className="com.liferay.commerce.model.CommerceOrderItem"
-			escapedModel="<%= true %>"
-			keyProperty="commerceOrderItemId"
-			modelVar="commerceOrderItem"
-		>
-			<liferay-ui:search-container-column-text
-				cssClass="important table-cell-content"
-				property="sku"
-			/>
+		<div style="margin-left:10px;">
+			<liferay-ui:search-container
+					id="commerceOrderItems"
+			>
+				<liferay-ui:search-container-results
+						results="<%= commerceOrderRender.getCommerceOrderItems() %>"
+						resultsVar="commerceOrderItems"
+				/>
 
-			<liferay-ui:search-container-column-text
-				cssClass="table-cell-content"
-				name="name"
-				value="<%= commerceOrderItem.getName(locale) %>"
-			/>
+				<liferay-ui:search-container-row
+						className="com.liferay.commerce.model.CommerceOrderItem"
+						escapedModel="<%= true %>"
+						keyProperty="commerceOrderItemId"
+						modelVar="commerceOrderItem"
+				>
+					<liferay-ui:search-container-column-text
+							cssClass="important table-cell-content"
+							property="sku"
+					/>
 
-			<liferay-ui:search-container-column-text
-				cssClass="table-cell-content"
-				property="quantity"
-			/>
+					<liferay-ui:search-container-column-text
+							cssClass="table-cell-content"
+							name="name"
+							value="<%= commerceOrderItem.getName(locale) %>"
+					/>
 
-			<%
-			CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
-			%>
+					<liferay-ui:search-container-column-text
+							cssClass="table-cell-content"
+							property="quantity"
+					/>
 
-			<liferay-ui:search-container-column-text
-				cssClass="table-cell-content"
-				name="price"
-				value="<%= finalPriceMoney.format(locale) %>"
-			/>
-		</liferay-ui:search-container-row>
+					<%
+						CommerceMoney finalPriceMoney = commerceOrderItem.getFinalPriceMoney();
+					%>
 
-		<liferay-ui:search-iterator
-			markupView="lexicon"
-		/>
-	</liferay-ui:search-container>
+					<liferay-ui:search-container-column-text
+							cssClass="table-cell-content"
+							name="price"
+							value="<%= finalPriceMoney.format(locale) %>"
+					/>
+				</liferay-ui:search-container-row>
+
+				<liferay-ui:search-iterator
+						markupView="lexicon"
+				/>
+			</liferay-ui:search-container>
+		</div>
+	</div>
 </div>
