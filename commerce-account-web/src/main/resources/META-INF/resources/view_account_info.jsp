@@ -20,7 +20,7 @@
 CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 %>
 
-<div class="minium-content-new">
+<div class="minium-content-new" style="margin-top:15px;">
 	<div class="columns-2" id="main-content" role="main">
 		<div class="portlet-layout row">
 			<div class="col-md-6 portlet-column portlet-column-first yui3-dd-drop" id="column-1">

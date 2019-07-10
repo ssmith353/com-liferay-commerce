@@ -1,4 +1,11 @@
-<%--
+<%@ page
+		import="com.liferay.document.library.kernel.service.DLAppLocalServiceUtil" %>
+<%@ page
+		import="com.liferay.commerce.product.service.CPAttachmentFileEntryLocalService" %>
+<%@ page
+		import="com.liferay.commerce.product.service.CPAttachmentFileEntryLocalServiceUtil" %>
+<%@ page import="com.liferay.commerce.product.model.CPAttachmentFileEntry" %>
+<%@ page import="com.liferay.portal.kernel.repository.model.FileEntry" %><%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
@@ -317,7 +324,7 @@ List<CPMedia> cpAttachmentFileEntries = cpContentHelper.getCPAttachmentFileEntri
 	<div class="row">
 		<div class="col">
 			<div class="commerce-panel">
-				<div class="commerce-panel__title"><%= LanguageUtil.get(resourceBundle, "attachments") %></div>
+				<div class="commerce-panel__title"><%= LanguageUtil.get(resourceBundle, "documentation") %></div>
 				<div class="commerce-panel__content">
 					<dl class="specification-list">
 
@@ -327,9 +334,32 @@ List<CPMedia> cpAttachmentFileEntries = cpContentHelper.getCPAttachmentFileEntri
 						for (CPMedia curCPAttachmentFileEntry : cpAttachmentFileEntries) {
 						%>
 
+						<%
+							long fileSize = 0;
+
+							CPAttachmentFileEntry cpAttachmentFileEntry = null;
+
+							cpAttachmentFileEntry = CPAttachmentFileEntryLocalServiceUtil.fetchCPAttachmentFileEntry(
+								curCPAttachmentFileEntry.getId());
+
+							try {
+								if (cpAttachmentFileEntry != null) {
+										FileEntry fileEntry = cpAttachmentFileEntry.getFileEntry();
+
+										fileSize = fileEntry.getSize();
+									}
+								}
+							catch (Exception e) {
+							}
+						%>
+
 							<dt class="specification-term">
 								<%= HtmlUtil.escape(curCPAttachmentFileEntry.getTitle()) %>
 							</dt>
+							<dt class="specification-term">
+								<%= fileSize %>
+							</dt>
+
 							<dd class="specification-desc">
 								<aui:icon cssClass="icon-monospaced" image="download" markupView="lexicon" target="_blank" url="<%= curCPAttachmentFileEntry.getDownloadUrl() %>" />
 							</dd>
