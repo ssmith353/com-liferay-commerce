@@ -400,10 +400,10 @@ public class DefaultCommerceMediaResolver implements CommerceMediaResolver {
 
 			if (Validator.isNotNull(driveFileId)) {
 				String driveURL =
-					"https://drive.google.com/a/liferay.com/uc?authuser=0&id=";
+					"https://drive.google.com/thumbnail?id=";
 
 				driveURL += driveFileId;
-				driveURL += "&export=download";
+				driveURL += "&sz=h9999";
 
 				return driveURL;
 			}

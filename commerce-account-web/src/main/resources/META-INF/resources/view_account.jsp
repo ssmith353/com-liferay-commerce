@@ -45,9 +45,12 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");
 					<span class="account-management__name">
 						<%= HtmlUtil.escape(commerceAccount.getName()) %>
 					</span>
-					<span class="account-management__email">
-						<%= HtmlUtil.escape(commerceAccount.getEmail()) %>
-					</span>
+					<span class="account-management__label">
+					<liferay-ui:message key="customer-id" />
+				</span>
+					<span class="account-management__value">
+					<%= commerceAccount.getCommerceAccountId() %>
+				</span>
 				</div>
 
 				<c:if test="<%= commerceAddress != null %>">
@@ -63,6 +66,23 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");
 						</div>
 					</div>
 				</c:if>
+
+				<div class="align-items-center col d-flex">
+					<div class="account-management__info-wrapper">
+					<span class="account-management__label">
+						<liferay-ui:message key="vat-number" />
+					</span>
+						<span class="account-management__value">
+						<%= commerceAccount.getTaxId() %>
+					</span>
+					</div>
+					<span class="account-management__email">
+						<liferay-ui:message key="email" />
+						<a href="mailto:<%= HtmlUtil.escape(commerceAccount.getEmail()) %>">
+							<%= HtmlUtil.escape(commerceAccount.getEmail()) %>
+					</a>
+					</span>
+				</div>
 
 				<div class="svg-container" style="margin-top: 44px;max-height: 150px;overflow: hidden;">
 
@@ -172,23 +192,11 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");
 			%>
 
 			<c:if test='<%= taxId != "" %>'>
-				<div class="account-management__info-wrapper">
-					<span class="account-management__label">
-						<liferay-ui:message key="vat-number" />
-					</span>
-					<span class="account-management__value">
-						<%= taxId %>
-					</span>
-				</div>
+
 			</c:if>
 
 			<div class="account-management__info-wrapper">
-				<span class="account-management__label">
-					<liferay-ui:message key="customer-id" />
-				</span>
-				<span class="account-management__value">
-					<%= commerceAccount.getCommerceAccountId() %>
-				</span>
+
 			</div>
 		</div>
 	</section>
