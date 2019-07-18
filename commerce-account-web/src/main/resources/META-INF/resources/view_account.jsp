@@ -37,55 +37,58 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");
 	<section class="panel panel-secondary">
 		<div class="panel-body">
 			<div class="row">
-				<div class="col-auto">
+				<div class="col-auto" style="    align-self: center;">
 					<img alt="avatar" class="account-management__thumbnail img-fluid rounded-circle" src="<%= commerceAccountDisplayContext.getLogo(commerceAccount) %>" />
 				</div>
 
-				<div class="col d-flex flex-col justify-content-center">
+				<div class="" style="display: flex;flex-direction: column;align-self: center;">
 					<span class="account-management__name">
 						<%= HtmlUtil.escape(commerceAccount.getName()) %>
 					</span>
-					<span class="account-management__label">
-					<liferay-ui:message key="customer-id" />
-				</span>
-					<span class="account-management__value">
-					<%= commerceAccount.getCommerceAccountId() %>
-				</span>
+					<div style="display:flex; flex-direction: row">
+						<span class="account-management__label">
+							<liferay-ui:message key="customer-id" />
+						</span>
+						<span class="account-management__label">
+							<%= commerceAccount.getCommerceAccountId() %>
+						</span>
+					</div>
 				</div>
 
-				<c:if test="<%= commerceAddress != null %>">
-					<div class="align-items-center col d-flex">
-						<div class="account-management__info-wrapper">
-							<span class="account-management__label">
-								<liferay-ui:message key="address" />
-							</span>
-							<span class="account-management__value">
-								<%= HtmlUtil.escape(commerceAddress.getStreet1()) %><br />
+				<table class="account-management__info-wrapper" style="margin-left: 2%;    align-self: center;">
+					<tbody>
+
+					<c:if test="<%= commerceAddress != null %>">
+						<tr style="">
+
+							<td class="account-management__label" style="text-align: right;padding-right: 15px;"><liferay-ui:message key="address" /></td>
+							<td class="account-management__value">
+								<%= HtmlUtil.escape(commerceAddress.getStreet1()) %>
+								<br />
 								<%= HtmlUtil.escape(commerceAddress.getCity() + StringPool.SPACE + commerceAddress.getZip()) %>
-							</span>
-						</div>
-					</div>
-				</c:if>
+							</td>
+						</tr>
+					</c:if>
 
-				<div class="align-items-center col d-flex">
-					<div class="account-management__info-wrapper">
-					<span class="account-management__label">
-						<liferay-ui:message key="vat-number" />
-					</span>
-						<span class="account-management__value">
-						<%= commerceAccount.getTaxId() %>
-					</span>
-					</div>
-					<span class="account-management__email">
-						<liferay-ui:message key="email" />
-						<a href="mailto:<%= HtmlUtil.escape(commerceAccount.getEmail()) %>">
-							<%= HtmlUtil.escape(commerceAccount.getEmail()) %>
-					</a>
-					</span>
-				</div>
+					<tr>
+						<td class="account-management__label" style="text-align: right;padding-right: 15px;"><liferay-ui:message key="vat-number" /></td>
+						<td class="account-management__value">
+							<%= commerceAccount.getTaxId() %>
+						</td>
+					</tr>
 
-				<div class="svg-container" style="margin-top: 44px;max-height: 150px;overflow: hidden;">
+					<tr>
+						<td class="account-management__label" style="text-align: right;padding-right: 15px;"><liferay-ui:message key="email" /></td>
+						<td class="account-management__value">
+							<a href="mailto:<%= HtmlUtil.escape(commerceAccount.getEmail()) %>">
+								<%= HtmlUtil.escape(commerceAccount.getEmail()) %>
+							</a>
+						</td>
+					</tr>
+					</tbody>
+				</table>
 
+				<div class="svg-container" style="margin-top: 25px;max-height: 150px;overflow: hidden;">
 					<%--high value svg--%>
 
 					<svg width="247" height="189" viewBox="0 0 247 189" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -151,7 +154,7 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");
 					</a>
 					<%--analytics cloud svg--%>
 
-					<a href="http://analytics:8080/workspace/32708/contacts/accounts/AWOTvH54Bv3Ji4ke4x5g" style="text-decoration:none;">
+					<a href="https://demo-3.liferay.com/workspace/32708/contacts/accounts/AWOTvH54Bv3Ji4ke4x5g" style="text-decoration:none;">
 						<svg width="201" height="189" viewBox="0 0 201 189" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<g filter="url(#filter0_d)">
 								<rect x="33" width="135" height="123" rx="8" fill="#26262D"/>
@@ -177,49 +180,13 @@ portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");
 						</svg>
 					</a>
 				</div>
-	</section>
-
-
 			</div>
 		</div>
 	</section>
-
-	<section class="mb-5 mt-1 panel panel-secondary">
-		<div class="panel-body">
-
-			<%
-			String taxId = commerceAccount.getTaxId();
-			%>
-
-			<c:if test='<%= taxId != "" %>'>
-
-			</c:if>
-
-			<div class="account-management__info-wrapper">
-
-			</div>
-		</div>
-	</section>
+</div>
 
 <liferay-frontend:screen-navigation
 		context="<%= commerceAccount %>"
 		key="<%= CommerceAccountScreenNavigationConstants.SCREEN_NAVIGATION_KEY %>"
 		portletURL="<%= portletURL %>"
 />
-
-<script>
-	function fixNavSpacing() {
-		var elements = document.getElementsByTagName('nav');
-
-		var element = (elements.length > 1) ? elements[1] : null;
-
-		if (element) {
-			var style = element.style;
-
-			style.setProperty('justify-content', 'space-evenly');
-		}
-	}
-
-	setTimeout(fixNavSpacing, 1500);
-</script>
-</div>

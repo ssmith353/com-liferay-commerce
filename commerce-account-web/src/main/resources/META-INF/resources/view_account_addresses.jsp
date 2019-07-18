@@ -26,6 +26,10 @@ PortletURL portletURL = currentURLObj;
 portletURL.setParameter(PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL", backURL);
 %>
 
+<div style="margin-top:3%">
+
+</div>
+
 <portlet:actionURL name="editCommerceAddress" var="editCommerceAddressActionURL" />
 
 <commerce-ui:table

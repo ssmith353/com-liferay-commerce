@@ -123,7 +123,7 @@ html {
 		max-width: 732px;
 	}
 
-	.columns-1 .portlet-layout {
+	.bgd-page-blogs .columns-1 .portlet-layout {
 		margin-left: auto;
 		margin-right: auto;
 		max-width: 932px;
@@ -794,34 +794,34 @@ html {
 			margin-right: $btn-group-item-margin-right;
 		}
 	}
+}
 
 
-	#portlet_com_liferay_notifications_web_portlet_NotificationsPortlet {
-		.container-fluid {
-			display: none;
-		}
-
-		.navbar {
-			display: none;
-		}
-
-		#notificationsManagementToolbar {
-			display: none;
-		}
+#portlet_com_liferay_notifications_web_portlet_NotificationsPortlet {
+	.container-fluid {
+		display: none;
 	}
 
+	.navbar {
+		display:none;
+	}
 
-	.notifications-custom-iframe {
-		#_com_liferay_notifications_web_portlet_NotificationsPortlet_ControlMenu {
-			display: none;
-		}
+	#notificationsManagementToolbar {
+		display:none;
+	}
+}
 
-		.navbar {
-			display: none;
-		}
 
-		#notificationsManagementToolbar {
-			display: none;
-		}
+.notifications-custom-iframe {
+	#_com_liferay_notifications_web_portlet_NotificationsPortlet_ControlMenu {
+		display:none;
+	}
+
+	.navbar {
+		display:none;
+	}
+
+	#notificationsManagementToolbar {
+		display:none;
 	}
 }
