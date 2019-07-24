@@ -42,61 +42,28 @@
 		</div>
 
 		<footer class="speedwell-footer">
-			<div class="speedwell-footer__info">logos</div>
+			<div class="speedwell-footer__info"></div>
 			<div class="speedwell-footer__menu">
 				<section>
 					<h2>COMPANY</h2>
-
-					<nav>
-						<a href="#">About us</a>
-						<a href="#">Work here</a>
-						<a href="#">Team</a>
-						<a href="#">Stories</a>
-					</nav>
+					<nav> <a href="#">About Us</a> <a href="#">Work Here</a> <a href="#">Team</a> <a href="#">Stories</a> </nav>
 				</section>
-
 				<section>
-					<h2>Company</h2>
-
-					<nav>
-						<a href="#">About us</a>
-						<a href="#">Work here</a>
-					</nav>
+					<h2>SELF-SERVICE</h2>
+					<nav>  <a href="#">FAQs</a><a href="#">Warranties</a> <a href="#">Repair Center</a>  </nav>
 				</section>
-
 				<section>
-					<h2>Company</h2>
-
-					<nav>
-						<a href="#">About us</a>
-						<a href="#">Work here</a>
-						<a href="#">Team</a>
-						<a href="#">Stories</a>
-						<a href="#">Stories</a>
-					</nav>
+					<h2>ORDERS</h2>
+					<nav> <a href="#">Shipping Policy</a> <a href="#">Return Policy</a> <a href="#">Payments</a> <a href="#">Promotions</a> </nav>
 				</section>
-
 				<section>
-					<h2>Company</h2>
-
-					<p>
-						Customer service and order hotline<br>
-						+44 20 3322 9915<br>
-						Monday - Friday 7:00am - 10:00pm<br>
-						Saturday 7:00am - 5:00pm
-					</p>
+					<h2>CONTACT</h2>
+					<nav> Customer Service<br>1-800-246-2634<br><a href="#">Locate Auto Parts Stores Near You</a></nav>
 				</section>
 			</div>
-
 			<div class="speedwell-footer__closing">
-				<img alt="${logo_description}" class="logo" src="${site_logo}" />
-
-				<nav>
-					<a href="#">Privacy Policy</a>
-					<a href="#">Terms and Conditions</a>
-					<a href="#">Legal Notice Patents</a>
-				</nav>
-
+				<img alt="" class="logo" src="/image/layout_set_logo?img_id=42922&amp;t=1563923869871">
+				<nav> <a href="#">Privacy Policy</a> <a href="#">Terms and Conditions</a> <a href="#">Legal Notice Patents</a> </nav>
 				© 2019 Speedwell
 			</div>
 		</footer>
